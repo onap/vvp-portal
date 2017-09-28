@@ -1,0 +1,192 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-toast is-modal="true"></ice-toast>
+<div class="getting-started-wizard">
+    <ice-loader selector=".modal-content"></ice-loader>
+
+    <div class="modal-header">
+        <h2 name="{{wizard.title}}" class="modal-title">{{wizard.title}}</h2>
+        <ul class="step-indication" ng-if="wizard.steps.length > 1">
+            <li ng-repeat="step in wizard.steps" ng-class="{selected: step.completed}">{{$index + 1}}</li>
+        </ul>
+
+        <button id="close-wizard-button" type="button" ng-click="wizard.closeWizard()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+
+        <div ng-switch="wizard.getCurrentStep()" class="slide-frame">
+            <div ng-switch-when="addVF">
+                <add-vf is-modal="true"></add-vf>
+            </div>
+
+            <div ng-switch-when="addContact">
+                <div>
+                    Please take a couple of moments to provide some additional details around your virtual function to
+                    get the process started. Do note that you can exit this wizard at any time to complete these items.
+                </div>
+
+                <form name="addContactForm" ng-submit="wizard.onAddContactSubmit()" novalidate
+                      class="addVendorContact-form col-md-12">
+
+                    <div class="form-group" ng-if="wizard.currentStep.mode === 'vendor'"
+                         ng-class="{ 'has-error' : addContactForm.company.$invalid && !addContactForm.company.$pristine }">
+                        <label class="ice-form-label required">Company</label>
+                        <select style="width:100%" name="company" ng-model="wizard.data.addContact.company"
+                                ng-options="company.uuid as company.name for company in wizard.companies track by company.uuid"
+                                class="form-control" ng-required="wizard.currentStep.mode === 'vendor'"></select>
+                        <div class="ice-form-error" data-ng-show="addContactForm.company.$error">
+                            <span
+                                ng-show="addContactForm.company.$error.required && !addContactForm.company.$pristine"
+                                class="help-block">Please select a company</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : addContactForm.fullName.$invalid && !addContactForm.fullName.$pristine }">
+                        <label class="ice-form-label required">Full Name</label>
+                        <input type="text" name="fullname" class="form-control"
+                               ng-model="wizard.data.addContact.full_name"
+                               ng-minlength="3" ng-maxlength="50" maxlength="50" required>
+                        <div class="ice-form-error" data-ng-show="addContactForm.fullname.$error">
+                            <span
+                                ng-show="addContactForm.fullname.$error.required && !addContactForm.fullname.$pristine">Full Name is a required field.</span>
+                            <span ng-show="addContactForm.fullname.$error.minlength">Full Name is too short.</span>
+                            <span ng-show="addContactForm.fullname.$error.maxlength">Full Name is too long.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : addContactForm.email.$invalid && !addContactForm.email.$pristine }">
+                        <label class="ice-form-label required">Email</label>
+                        <input type="email" name="email" class="form-control" ng-model="wizard.data.addContact.email"
+                        	ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+                               maxlength="254"
+                               required>
+                        <div class="ice-form-error" data-ng-show="addContactForm.email.$error">
+                            <span
+                                ng-show="addContactForm.email.$error.required && !addContactForm.email.$pristine">Email is a required field.</span>
+                            <span ng-show="addContactForm.email.$invalid && !addContactForm.email.$pristine"
+                                  class="help-block">Enter a valid email.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : addContactForm.phone.$invalid && !addContactForm.phone.$pristine }">
+                        <label class="ice-form-label required">Phone</label>
+             		    <input type="text" name="phone" class="form-control" ng-intl-tel-input ng-model="wizard.data.addContact.phone_number" required ng-minlength="6" ng-maxlength="30">
+                        <div class="ice-form-error" data-ng-show="addContactForm.phone.$error">
+                            <span
+                                ng-show="addContactForm.phone.$error.required && !addContactForm.phone.$pristine">Phone is a required field.</span>
+                            <span ng-show="addContactForm.phone.$error.minlength"
+                                  class="help-block">Phone is too short.</span>
+                            <span ng-show="addContactForm.phone.$error.maxlength"
+                                  class="help-block">Phone is too long.</span>
+       		     		   <span ng-show="addContactForm.phone.$error.pattern" class="help-block">Phone must consist of numbers only.</span>
+    		       		   <span ng-show="addContactForm.phone.$invalid" class="help-block">Phone format invalid</span>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit" data-ng-disabled="!addContactForm.$valid">
+                        {{wizard.currentStep.submitButton}}
+                    </button>
+                </form>
+            </div>
+
+            <div ng-switch-when="inviteMembers">
+                <div>
+                    You can invite up to 10 team members at a time to collaborate around your virtual function as you would like.
+                    Please do remember that <em>anyone</em> who is invited to collaborate around the virtual function will have equal access.
+                </div>
+
+                <form name="inviteMembersForm" ng-submit="wizard.onInviteSubmit()" novalidate
+                      class="inviteMembers-form col-md-12">
+                    <div>
+                        <fieldset data-ng-repeat="choice in wizard.inviteMembers.choices|limitTo:10">
+                            <div id="containera" class="input-wrapper"><input type="email" name="email" class="form-control" ng-model="choice.email" maxlength="50" class="form-control" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'  required></div>
+	                        <div class="ice-form-error" data-ng-show="inviteMembersForm.email.$error">
+	                            <span
+	                                ng-show="inviteMembersForm.email.$error.required && !inviteMembersForm.email.$pristine">Email is a required field.</span>
+	                            <span ng-show="inviteMembersForm.email.$invalid && !inviteMembersForm.email.$pristine"
+	                                  class="help-block">Enter a valid email.</span>
+	                        </div>
+                            <div class="remove-button" ng-click='wizard.removeChoice()' ng-show="$last"><span class="remove-icon"></span>Remove</div>
+                        </fieldset>
+                    </div>
+                    <a ng-if="wizard.inviteMembers.choices.length < 10" class="add-button" ng-click='wizard.addNewChoice()'>
+                        <span class="add-icon"></span>
+                        <span class="add-text">Invite another team member</span>
+                    </a>
+
+                    <button type="submit" class="btn btn-primary" data-ng-disabled="!inviteMembersForm.$valid">Send
+                        invitations
+                    </button>
+
+                </form>
+            </div>
+
+            <div ng-switch-when="addSSH">
+                <div>
+                    It looks like you have not yet added your SSH key to your profile. You can add one
+                    now. Please do remember that only team members who have added SSH keys to their
+                    profile can add files.
+                </div>
+                <form name="addSSHForm" ng-submit="wizard.onAddSSHSubmit()" novalidate class="addSsh-form col-md-12">
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : addSSHForm.key.$invalid && !addSSHForm.key.$pristine }">
+                        <label class="ice-form-label required">SSH Key</label>
+                        <textarea type="text" name="key" class="form-control" ng-model="wizard.data.addSSH.ssh_key"
+                               ng-minlength="3" ng-maxlength="2048" required></textarea>
+                        <div class="ice-form-error" data-ng-show="addSSHForm.key.$error">
+                            <span
+                                ng-show="addSSHForm.key.$error.required && !addSSHForm.key.$pristine"
+                                class="help-block">Please enter your SSH key</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" data-ng-disabled="!addSSHForm.$valid" type="submit">Add SSH Key</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</div>

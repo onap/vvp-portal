@@ -1,0 +1,18 @@
+# Eclipse
+**/__pycache__/
+.pydevproject
+.project
+**/migrations/
+logs/
+.settings
+.project
+.tern-project
+d2ice.att.io/.idea/
+d2ice.att.io/app/styles/app.css
+*.orig
+.idea
+d2ice.att.io/app/styles/app.less
+npm-debug.log
+txcontainerkit/
+d2ice.att.io/app/app.env.js
+.DS_Store

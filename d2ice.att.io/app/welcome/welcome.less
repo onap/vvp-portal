@@ -1,0 +1,208 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+.welcome-boxes {
+    margin-top: 60px;
+}
+
+.welcome-box {
+    h3 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 16px;
+        padding: 0 15px;
+        color: @welcome_box_text_color;
+        margin-bottom: 0;
+    }
+}
+
+.get-started-button {
+    width:190px;
+    margin-top:20px;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    color:white !important;
+    height:48px;
+    font-size:18px !important;
+    font-weight: bold;
+    line-height:38px;
+    vertical-align: middle;
+    background: linear-gradient(@welcome_button_gradient1, @welcome_button_gradient2);
+    border: 1px solid @welcome_button_border;
+    border-radius: 6px;
+}
+
+.welcome-body {
+    overflow: auto;
+}
+
+.welcome-navbar {
+    background-color: black;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-color: @welcome_navbar_hr;
+    border-left: black;
+    z-index: 1030;
+    left: 0;
+    right: 0;
+    position: absolute;
+    border-radius: 0;
+    top: 0;
+}
+
+.welcome-nav-link {
+    color: @main_color_p !important;
+    font-weight: 600;
+    line-height: 20px;
+    margin-top: 7px;
+}
+
+.welcome {
+    position: relative;
+    width: 100%;
+    //min-height: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background: url('../styles/images/home_bg1-1920x1138.jpg') center;
+    text-align: center;
+    color: white;
+}
+
+.welcome .header-content {
+    position: relative;
+    text-align: center;
+    padding: 100px 15px 100px;
+    width: 100%;
+}
+.welcome .header-content .header-content-inner h1 {
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 30px;
+    color: @main_color_p;
+}
+
+.welcome .header-content .header-content-inner p {
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 50px;
+    color: @main_color_p;
+}
+
+@media (min-width: 768px) {
+  .welcome {
+    min-height: 73%;
+  }
+
+  .welcome .header-content {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    padding: 0 50px;
+  }
+
+  .welcome .header-content .header-content-inner {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .welcome .header-content .header-content-inner h1 {
+    font-size: 50px;
+  }
+
+  .welcome .header-content .header-content-inner p {
+    font-size: 18px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.welcome-footer {
+    background: @welcome_footer_bg;
+    color: @welcome_footer_text;
+    padding: 60px 0 0;
+    margin-top: 60px;
+}
+
+.welcome-footer-copyright {
+    color: @welcome_footer_text;
+    font-size: 17px;
+    line-height: 25px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.welcome-logo {
+    margin-top: -8px;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background: none;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover:after,
+.navbar-collapse .navbar-nav > li.active > a:after,
+.navbar-collapse .navbar-nav > li.active > a:hover:after,
+.navbar-collapse .navbar-nav > li.active > a:focus:after {
+    position:absolute;
+    bottom:9px;
+    left:50%;
+    content:'';
+    width:20px;
+    height:2px;
+    margin-left:-10px;
+    background-color:#fff;
+}
+
+
+.navbar-nav > li + li {margin-left:2px}
+.navbar-collapse .navbar-nav > li.active > a,
+.navbar-collapse .navbar-nav > li.active > a:hover,
+.navbar-collapse .navbar-nav > li.active > a:focus {
+    color:#828282;
+    background-color:transparent;
+}

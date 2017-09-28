@@ -1,0 +1,117 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="checkList" ng-disabled="true" ng-if="vm.data != false">
+<section id="state-bar" class="row ">
+        <ul  class="nav nav-justified col-md-12">
+            <li ng-attr-id="{{ vm.data.checklist.state.replace('_',' ') == state ? 'state'+'_'+vm.data.checklist.name : ''}}" ng-class="{'active' : vm.data.checklist.state.replace('_',' ') == state}" data-ng-repeat="state in vm.data.states" >
+                <span class="state-icon sprite {{state.replace(' ','_')}}-state"></span>{{$index + 1}}. {{state}}
+            </li>
+        </ul>
+</section>
+<header class="row" id="cl-header"> <!-- start of header -->
+  	<h1 class="col-sm-12 col-xs-12 col-md-6" id="cl-title"> <!-- start of title -->
+	    <span id="edit-checklist" class="sprite edit-medium" ng-if="vm.data.checklist.state != 'closed' && !vm.is_peer_reviewer" ng-click="vm.editChecklist()" ></span>
+	    <span class="bold" >Checklist:</span>
+	    <span id="cl-name-id">{{vm.data.checklist.name}}</span>
+	</h1> <!-- end of title -->
+    <div class = "cl-action-buttons-frame col-sm-12 col-xs-12 col-md-6">
+
+	     <div ng-if="vm.data.checklist.state != 'closed'" id="state-actions" class="">
+	           <button class="btn btn-gradient-success" ng-if="vm.data.checklist.state != 'pending' && vm.data.checklist.state != 'automation' && (vm.data.checklist.state == 'pending' || vm.is_able_to_approve)" ng-click="vm.stateAction('approve')">
+		           {{vm.data.checklist.state == 'pending' ? 'Automate' : vm.data.checklist.state == 'handoff' ? 'Handoff complete?' : 'Approve'}}
+		       </button>
+               <button id="state-actions-btn-reject" class="btn btn-gradient-danger" ng-if="vm.has_files && vm.data.checklist.state != 'handoff' &&  vm.data.checklist.state != 'pending' &&  vm.data.checklist.state != 'automation'" ng-click="vm.stateAction('reject')">Reject</button>
+	           <button id="state-actions-btn-add-next-steps" class="btn btn-gradient-primary" ng-if="vm.data.checklist.state != 'handoff' && vm.data.checklist.state != 'pending'" ng-click="vm.stateAction('next_step')">Add Next Steps</button>
+	     </div>
+	   	 <ul class="" id="cl-side-actions"> <!-- start of side actions -->
+	        <li><span id="audit-log" ng-click="vm.auditLog()">Audit Log ({{vm.data.checklistAuditLogs.length}})</span></li>
+            <li><span id="jenkins-log" ng-click="vm.openJenkinsLogModal()">Jenkins Log</span></li>
+
+		</ul>
+	</div>
+</header>
+
+<article class="row" ng-class="{'blocked-area' : vm.data.checklist.state == 'pending' || vm.data.checklist.state == 'automation' }" id="checklist-main-section" >
+    <ul class="col-md-6" id="line-item-list"> <!-- start of line item list -->
+        <li data-ng-repeat="section in vm.data.checklistDecisions | toArray:false"><h2><span class="bold">Section {{section.counter}}:</span> {{section.section.name}}</h2> <!-- start of section -->
+            <ul>
+                <li data-ng-repeat="decision in section.decisions | toArray:false" class="line-item-row" ng-class="{'selected-line' : decision.selected }" ng-click="vm.selectDecision(decision,$event)"> <!-- start if line item row -->
+                    <span class="col-sm-2 col-xs-2 col-md-2 value-icon"><span ng-class="decision.view_value_css" id="{{decision.uuid}}_{{decision.view_value}}" ></span>{{decision.counter}}</span>
+                    <span class="col-sm-9 col-xs-9 col-md-9" ng-class="decision.lineitem.line_type" name="{{decision.lineitem.name}}">{{decision.lineitem.name}}</span>
+                    <span class="col-sm-1 col-xs-1 col-md-1 auto-icon"><span ng-class="decision.auto_icon_css"></span></span>
+                    <span class="selected-line-connector"></span>
+                </li> <!-- end of line item row -->
+            </ul>
+        </li> <!-- end of section -->
+    </ul> <!-- end of line item list -->
+    <aside class="col-md-6" id="line-item-extended"> <!-- start of line item extended view -->
+        <header class="row"> <!-- start of line-item extended header -->
+            <h2 class="col-sm-8 col-xs-8 col-md-8"><span class="bold">{{vm.selected_decision.counter}} -</span> {{vm.selected_decision.lineitem.name}}</h2>
+            <ul class="col-sm-4 col-xs-4 col-md-4" ng-if="(vm.data.checklist.state == 'review' || vm.data.checklist.state == 'peer_review' ) &&
+            vm.selected_decision.lineitem.line_type == 'manual'" ng-class="{'active' : vm.selected_decision.lineitem.line_type == 'manual'}" id="decision-actions">
+                <li class="not-relevant-btn" ng-class="{'active' : vm.selected_decision['selected-value'] == 'not_relevant'}" ng-click="vm.selected_decision.lineitem.line_type == 'manual' && vm.setDecision(vm.selected_decision,'not_relevant')"></li>
+                <li class="denied-cl-btn" ng-class="{'active' : vm.selected_decision['selected-value'] == 'denied'}" ng-click="vm.selected_decision.lineitem.line_type == 'manual' && vm.setDecision(vm.selected_decision,'denied')"></li>
+                <li class="approved-cl-btn" ng-class="{'active' : vm.selected_decision['selected-value'] == 'approved'}" ng-click="vm.selected_decision.lineitem.line_type == 'manual' && vm.setDecision(vm.selected_decision,'approved')"></li>
+            </ul>
+        </header> <!-- end of line-item extended header -->
+        <section id="line-item-description" ng-bind-html="vm.selected_decision.lineitem.description | htmlspecialchars | htmlstylespan"></section>
+        <section id="line-item-validation-instructions">
+            <h3>Validation Instructions</h3>
+            <p ng-bind-html="vm.selected_decision.lineitem.validation_instructions | htmlspecialchars"></p>
+        </section>
+        <section id="line-item-audit-logs" class="row"> <!-- start of line item audit logs -->
+            <h3 class="col-md-12">audit logs</h3>
+            <ul id="audit-log-list" class="col-md-12"> <!-- start of audit log list- -->
+                <li class="row" ng-repeat="auditlog in vm.data.decisionAuditLogs[vm.selected_decision.uuid] | orderBy:'create_time'">
+                    <h4 class="col-md-6 audit-creator">{{auditlog.creator.full_name}}</h4><span class="col-md-6 audit-date">{{vm.formatDate(auditlog.create_time)}}</span>
+                    <p id="line-item-audit-log-{{$index}}" class="col-md-12 audit-text">{{auditlog.description}}</p>
+                </li>
+
+            </ul> <!-- end of audit log list -->
+            <form name="checklistAuditLog" id="new-audit-log-from" ng-submit="vm.submitDecisionAuditLog()" novalidate class="row col-md-12"> <!-- start of new audit log form -->
+                <textarea name="TextBox" class="col-sm-12 col-xs-12 col-md-12" ng-model="vm.selected_decision.new_audit_log_description" id="new-audit-log-text" ng-trim="false" required></textarea>
+                <div data-ng-show="checklistAuditLog.TextBox.$error" class="ice-form-error">
+                    <span ng-show="checklistAuditLog.TextBox.$error.pattern">Inserted text should not include any special chars such as: \%_* ."</span>
+                </div>
+                <button type="submit" class="col-sm-12 col-xs-12 col-md-12 btn btn-gradient-primary" id="submit-new-audit-lop-text">Add Log Entry</button>
+            </form> <!-- end of new audit log form -->
+        </section> <!-- end of line item audit logs -->
+    </aside> <!-- end of line item extended view -->
+</article> <!-- end of line item -->
+</div>

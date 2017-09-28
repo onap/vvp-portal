@@ -1,0 +1,114 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<nav id="main-nav" class="welcome-navbar navbar">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header welcome-nav-link">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="welcome-logo navbar-brand page-scroll" href="#/">
+                <img class="logo-trans logo-reg" id="logo" src="/styles/images/d2sandbox_logos-150x30.png" height="30" width="150" alt="AT&amp;T | {{'program.name' | i18next}}">
+                </a>
+        </div>
+
+        <!-- nav links -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="welcome-nav-link page-scroll" ui-sref="app.login">Login</a>
+                </li>
+                <li>
+                    <a class="welcome-nav-link page-scroll" ui-sref="app.register">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<header class="welcome">
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 id="home-heading">Welcome to {{'program.name' | i18next}}</h1>
+            <p>{{'program.name' | i18next}} is a process allowing VFs to be incubated & validated against the {{'serviceProvider.name' | i18next}} Domain 2.0 architecture.</p>
+            <a ui-sref="app.register" class="get-started-button btn btn-primary btn-xl page-scroll">Get Started</a>
+        </div>
+    </div>
+</header>
+
+<section id="boxes" class="welcome-boxes container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 text-center">
+            <div class="welcome-box">
+                <img class="animated infinite pulse" id="incubate" src="/styles/images/Incubate.png" border="0" alt="">
+                <h3>Incubate</h3>
+                <p class="text-muted">{{'program.name' | i18next}} encourages you to engage early to make sure the process is as iterative and collaborative as possible.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 text-center">
+            <div class="welcome-box">
+                <img class="animated infinite pulse" id="validate" src="/styles/images/Validate.png" border="0" alt="">
+                <h3>Validate</h3>
+                <p class="text-muted">{{'program.name' | i18next}} is focused to help validate your VF according the {{'serviceProvider.name' | i18next}} guidelines and requirements to allow for seamless onboarding.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 text-center">
+            <div class="welcome-box">
+                <img class="animated infinite pulse" id="collaborate" src="/styles/images/Collaborate.png" border="0" alt="">
+                <h3>Collaborate</h3>
+                <p class="text-muted">{{'program.name' | i18next}} allows and encourages you to collaborate with your VF team to validate your VF both internally and externally.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="welcome-footer" role="contentinfo">
+    <div class="footer-btm-bar container">
+        <div class="welcome-footer-copyright row">
+            <div class="col-xs-12">
+                <p>
+                    <span>© 2016 {{'serviceProvider.name' | i18next}} Intellectual Property.</span>  |
+                    <span>All rights reserved. {{'serviceProvider.name' | i18next}}, the {{'serviceProvider.name' | i18next}} logo and all other {{'serviceProvider.name' | i18next}} marks contained herein are trademarks of {{'serviceProvider.name' | i18next}} Intellectual Property and/or {{'serviceProvider.name' | i18next}} affiliated companies. {{'serviceProvider.name' | i18next}} 36USC220506</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

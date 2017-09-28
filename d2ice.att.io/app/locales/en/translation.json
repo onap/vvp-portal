@@ -1,0 +1,12 @@
+{
+	"vendor": {
+		"name": "EXAMPLE VENDOR",
+		"email": "admin@example.com"
+	},
+	"serviceProvider": {
+		"name": "EXAMPLE PROVIDER"
+	},
+	"program": {
+	    "name": "VVP PROGRAM"
+	}
+}

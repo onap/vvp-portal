@@ -1,0 +1,400 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+#detailed-view {
+
+    padding:0px 30px 0px 30px;
+
+    .glyphicon-cursor-detailed-view {
+        cursor: pointer;
+        margin-left: 0.5%;
+    }
+
+    .detailed-view-edit-mode {
+        cursor: pointer;
+        margin-left: 0.5%;
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        .sprite;
+        .sprite.edit-medium;
+    }
+
+    .hide-element {
+        display:none;
+    }
+
+    .show-select {
+        display:block;
+        margin-bottom: 3%;
+    }
+
+    .row > h1 {
+        padding: 0px;
+        margin-bottom: 0px;
+
+        .a_36;
+
+        .bold {
+            .a_36_m;
+        }
+    }
+
+    .remove-button {
+        height: 10px;
+        .a_16_m;
+        cursor: pointer;
+
+
+        .remove-icon {
+            .sprite;
+            .sprite.delete;
+            cursor: pointer;
+            display: block;
+            position: relative;
+        }
+    }
+
+    .steps-progress-wrapper {
+        margin-top: 10px;
+    }
+
+
+
+    h2 {
+        display: inline-block;
+        margin: 0 0 10px 0;
+        .a_24_m;
+        font-size: 20px;
+        position: relative;
+        .add-vfc {
+            .sprite;
+            .sprite.add;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: pointer;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    .main-section {
+        margin-top: 30px;
+    }
+
+    .steps-header {
+
+        .steps-filter {
+            display: inline-block;
+            float: right;
+            .a_16_m;
+            .todo {
+                .sprite;
+                .sprite.todo;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .completed {
+                .sprite;
+                .sprite.pending;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .confirmed {
+                .sprite;
+                .sprite.approved;
+                display: inline-block;
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .vfc-column {
+        height: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-top: 20px;
+
+        ul {
+            li.step {
+
+                list-style: none;
+                position: relative;
+                padding: 5px 10px 0px 4px;
+                font-size: 16px;
+                }
+            }
+         }
+
+    .vfc-steps {
+        border-right: dashed 1px @main_color_a;
+        height: 100%;
+        padding-right: 20px;
+        padding-left: 0px;
+        padding-top: 20px;
+
+        ul {
+            li.step {
+
+                list-style: none;
+                position: relative;
+                padding: 5px 10px 0px 4px;
+                font-size: 16px;
+                &:hover {
+                    background-color: #DEF3FF;
+
+                    .details {
+                        .actions {
+                            span {
+                                visibility: visible;
+                            }
+                        }
+                    }
+
+                }
+
+                &.completed {
+                    background-color: #dddddd;
+                    opacity: 0.7;
+                }
+
+                .description {
+
+                    .m_16_r;
+                    border-bottom: dashed 1px @main_color_n;
+                    padding: 10px 0;
+
+                    input {
+                        position: absolute;
+                        top: 10px;
+                        left: 0;
+                        margin-right: 20px;
+                    }
+
+                    .step-text {
+                        margin-left: 20px;
+                    }
+
+                    .step-state {
+
+                        position: absolute;
+                        top: 24px;
+
+                        &.todo {
+                            .steps-sprite;
+                            .steps-sprite.todo;
+                            display: inline-block;
+                        }
+                        &.confirmed {
+                            .steps-sprite;
+                            .steps-sprite.confirmed;
+                            display: inline-block;
+                        }
+                        &.completed {
+                            .steps-sprite;
+                            .steps-sprite.completed;
+                            display: inline-block;
+                        }
+                        &.completed-non-el {
+                            .steps-sprite;
+                            .steps-sprite.completed-non-el;
+                            display: inline-block;
+                        }
+                    }
+
+                }
+                .details {
+                    .m_12_r;
+                    margin: 6px 0 10px 0;
+
+                    .actions {
+                        float: right;
+                        margin-top: 2px;
+
+                        span {
+                            visibility: hidden;
+                        }
+
+                        .moveto-confirmed {
+                            .actions-sprite;
+                            .actions-sprite.approve_large;
+                            display: inline-block;
+                            cursor: pointer;
+                        }
+                        .moveto-todo {
+                            .actions-sprite;
+                            .actions-sprite.reject_large;
+                            display: inline-block;
+                            cursor: pointer;
+                        }
+                        .moveto-delete {
+                            .actions-sprite;
+                            .actions-sprite.delete_large;
+                            display: inline-block;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+        #deployment-targets {
+            border: 1px solid @engagement_team_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #deployment-targets-header {
+    			background-color: @engagement_team_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .edit-target-completion {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            #deployment-targets-content {
+                .f-type._16_r;
+                margin: 15px;
+            }
+        }
+        #virtual-function-components {
+            border: 1px solid @engagement_status_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #virtual-function-header {
+    			background-color: @engagement_status_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .edit-target-completion {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            #virtual-function-content {
+                .f-type._16_r;
+                margin: 15px;
+            }
+        }
+        
+        #target-lab-entry {
+            border: 1px solid @target_completion_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #target-lab-entry-header {
+    			background-color: @target_completion_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .edit-target-completion {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            #target-lab-entry-content {
+                .f-type._16_r;
+                margin: 15px;
+            }
+        }
+     	#validation-details {
+            border: 1px solid #4990E2;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #validation-details-header {
+    			background-color: #4990E2;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .edit-target-completion {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            #validation-details-content {
+                .f-type._16_r;
+                margin: 15px;
+            }
+        }
+    .team-and-logs {
+        height: 100%;
+        padding-left: 20px;
+        padding-top: 20px;
+        margin-left: -1px;
+        border-left: dashed 1px @main_color_a;
+
+        .line{
+            margin-bottom: 10px;
+        }
+
+    }
+
+    .add-next-step-form {
+        .ice-wysiwyg {
+            height: 200px;
+            .wysiwyg-menu > div {
+                background-color: #f1f1f1;
+                padding: 2px;
+            }
+        }
+    }
+
+    .vfc-main-section {
+        margin-top: 0px;
+    }
+}

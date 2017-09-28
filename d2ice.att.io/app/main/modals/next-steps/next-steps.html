@@ -1,0 +1,138 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-toast is-modal="true"></ice-toast>
+<div class="modal-header next-steps">
+    <button type="button" ng-click="vm.closeModal()" id="close-modal-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="data-row-wrapper col-md-12 checklist-name" >
+        <span class="font_header">
+            {{vm.checklist.uuid == undefined && 'Engagement' || 'Checklist' }}:
+        </span>
+        <span class="font_header_chk_name margin_btm">
+            {{vm.title}}
+        </span>
+    </div>
+</div>
+<div class="modal-body next-steps">
+    <form name="nextStepsForm" ng-submit="vm.submitForm()" novalidate class="checkList-form" style="position:relative">
+        <div class="data-row-wrapper addNextSteps">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="font_header_add_next">
+                        <h2>{{vm.edit ? 'Edit' : 'Add'}} Next Steps</h2>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="m_18_r">Use the form below to {{vm.edit ? 'edit next step' : 'add next steps'}}. You will need to specify assignees, which files it applies to and the due date.</span>
+                </div>
+            </div>
+        </div>
+        <div data-ng-repeat="nextStep in vm.nextSteps" ng-class="{lineColor: ($index % 2 != 0)}" class="data-row-wrapper repeaterNextStep">
+            <div class="form-group row posRelative">
+                <span class="remove-icon posAbsDelBtn" ng-if="vm.nextSteps.length > 1" ng-click='vm.removeStep($index)'></span>
+                <div class="col-md-12">
+                    <wysiwyg textarea-id="description"
+                             textarea-class="form-control"
+                             textarea-name="description"
+                             name="description"
+                             textarea-height="160px"
+                             ng-required="true"
+                             ng-model="nextStep.description"
+                             class="ice-wysiwyg"
+                             enable-bootstrap-title="true"
+                             textarea-menu="vm.wysiwyg_menu"
+                             required>
+                    </wysiwyg>
+                </div>
+                <div class="col-md-12 padTop4">
+                        <multiselect
+                            ng-model="nextStep.files"
+                            options="c.File for c in vm.associated_files"
+                            name="{{vm.associated_files}}"
+                            data-multiple="true"
+                            scroll-after-rows="5"
+                            filter-after-rows="5"
+                            ng-required='vm.checklist.uuid != undefined'
+                            ms-selected="{{nextStep.files.length > 1 ? vm.get_chosen_files_num(nextStep) + ' files' : nextStep.files.length + ' file'}} selected"
+                            class = "ms"
+                            ms-header = "Select all associated files to this next step"
+                            id="associated-files-list"
+                            tabindex="-1"
+                            change="vm.verify_files_choice(nextStep)"
+                        >
+                        </multiselect>
+                </div>
+                <div class="col-md-6 padTop10">
+                        <multiselect
+                            ng-model="nextStep.assigneesUuids"
+                            options="c.name for c in vm.assigness"
+                            data-multiple="true"
+                            scroll-after-rows="5"
+                            filter-after-rows="5"
+                            ng-required='vm.checklist.uuid != undefined'
+                            ms-header = "Select assignees"
+                            ms-selected="{{nextStep.assigneesUuidss.length > 1 ? nextStep.assigneesUuidss.length + ' assignees' : nextStep.assigneesUuidss.length + ' assignee'}} selected"
+                            id="select-assigness"
+                            tabindex="-1">
+                        </multiselect>
+                </div>
+                <div class="col-md-6 padTop10">
+                        <div flex-gt-xs>
+                            <md-datepicker ng-model-options="{timezone: 'gmt'}"  md-min-date="vm.minDate"  class="btn btn-default" ng-model="nextStep.duedate" md-placeholder="Add a Due Date" data-ng-required="true" ></md-datepicker>
+                          </div>
+                </div>
+            </div>
+        </div>
+            <div class="data-row-wrapper " ng-if="!vm.edit">
+                <div class="col-md-12 padLeft0">
+                    <a class="add-button" ng-click='vm.addNewStep()'>
+                        <span class="add-icon"></span>
+                        <span class="add-text" >Add Another Next Step</span>
+                    </a>
+                </div>
+            </div>
+            <div class="data-row-wrapper ">
+                <button type="submit" id="btn-submit" class="btn btn-primary" data-ng-disabled="!nextStepsForm.$valid">Submit Next Steps</button>
+            </div>
+            <div class="data-row-wrapper  text-right font-deco" ng-click="vm.closeModal()">
+                Skip for now
+            </div>
+    </form>
+</div>

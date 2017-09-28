@@ -1,0 +1,197 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="dashboard-navigation">
+	<ice-loader selector=".engagements-list" ></ice-loader>
+	<get-started-modal></get-started-modal>
+	<h1 class="caption">Engagements<span id="add-engagement" ng-click="vm.openGettingStartedWizard()" class="add-engagement fa fa-plus-circle"></span></h1>
+	<!--  start of search bar -->
+	 <span  id="mobile-collapse" class="pull-right glyphicon glyphicon-align-justify" data-toggle="collapse" data-target=".navbar-collapse"></span>
+	<aside id="engagement-search">
+	    <input type="text"
+	    	typeahead-template-url="engagementSelectTemplate"
+            id="search-eng"
+	    	ng-model="vm.selected_search_engagement"
+	    	uib-typeahead="engagement for enagement in enagements_search_list | customVFSearchFilter:$viewValue | limitTo:100"
+	    	popover-trigger='outsideClick'
+            popover-placement="right"
+	    	uib-popover="For example search by User Email"
+	    	typeahead-no-results="noResults"
+	    	placeholder="Eng. ID, VF, VFC, User"
+	    	class="form-control"
+	    	typeahead-on-select="vm.searchSelectEngagement($item.engagement__uuid)"
+	    	>
+		<script type="text/ng-template" id="engagementSelectTemplate">
+		<a>
+   			<span class="search-engagement-name" id="search-{{match.model.vf__name}}">{{match.model.engagement__engagement_manual_id}}: {{match.model.vf__name}}</span>
+		</a>
+	</script>
+	<div ng-show="noResults" id="search-no-results">
+	   <i class="glyphicon glyphicon-remove"></i> No Match Found
+	</div>
+</aside>
+
+
+<div id="nav-bar-wrapper" class="navbar-collapse collapse">
+<!--  end of search bar -->
+<section id="menu-starred" class="menu-engagements-category">
+	<h2 class="menu-engagement-category-title">Starred</h2>
+	<ul class="engagements-list">
+	    <li data-ng-repeat="engagement in vm.starred_engagements  | toArray | orderBy:'engagement_manual_id'"
+	        ng-class="{'selected': engagement.selected===true && vm.view_type != 'dashboard'}"
+	        id="{{engagement.engagement_manual_id}}"
+	        >
+	        <span ng-if="engagement.red_dot" class="red_dot sprite" alt="{{engagement.red_dot | capitalize}}" title="{{engagement.red_dot | capitalize}}"
+                    popover-trigger="mouseenter"
+                    popover-html='true'
+                    popover-placement="right"
+                     uib-popover="{{engagement.red_dot | capitalize}}"
+	        >
+	        </span>
+	        <span id="clickable-{{engagement.name}}" class="clickable" ng-click="vm.selectEngagement(engagement.uuid,'overview');" >{{engagement.name}}</span>
+	        <ul class="engagement-details" data-ng-if="engagement.selected===true && vm.view_type != 'dashboard'">
+	            <li
+	                id="overview-{{engagement.name}}" ng-click="vm.selectEngagement(engagement.uuid,'overview');"
+	                ng-class="{'selected': engagement.page == 'overview'}"
+	                class="clickable"
+	             >
+	             <span class="engagement_detail_menu_name">Overview</span>
+	             <span class="engagement_detail_menu_raquo" ng-if="engagment.page == 'overview'">&raquo;</span>
+	             </li >
+	            <li
+	                id="detailed-view-{{engagement.name}}" ng-click="vm.selectEngagement(engagement.uuid,'detailedview');"
+	                ng-class="{'selected': engagement.page == 'detailedview'}"
+	                class="clickable"
+	            >
+		            <span class="engagement_detail_menu_name" >Detailed View</span>
+		            <span class="engagement_detail_menu_raquo" ng-if="engagment.page == 'detailedview'">&raquo;</span>
+	            </li>
+	            <li class="engagement-details-sub-catgeory" ng-if="(vm.isEngagementEL || vm.isAdmin)">
+	                <span class="sub-category-title">Checklist
+	                    <span data-ng-if="(vm.isReviewer || vm.isAdmin)" id="checklist-plus-{{vm.engagement.uuid}}" class="clickable add-checklist fa fa-plus-circle" data-ng-click="vm.addChecklist(vm.engagement.uuid)" class="clickable"></span>
+	                </span>
+	                <ul class="engagement-checklist" data-ng-if="engagement.selected===true">
+	                    <li
+	                        data-ng-repeat="checklist in engagement.checklists"
+	                        id="checklist-{{checklist.uuid}}"
+	                        ng-class="{
+	                            'clickable' : vm.user.uuid == checklist.owner__uuid || vm.isAdmin,
+	                            'disabled' : vm.user.uuid != checklist.owner__uuid && !vm.isAdmin || (checklist.state == 'closed' && !vm.isAdmin),
+	                            'selected': engagement.sub_id == checklist.uuid
+                            }"
+							alt="{{checklist.state | capitalize }}"
+	                        ng-click="( (checklist.state != 'closed' && ((vm.me.uuid == checklist.owner__uuid)|| vm.isAdmin)) || ((checklist.state == 'closed') && vm.isAdmin) ) && vm.selectEngagement(engagement.uuid,'checklist',checklist.uuid); "
+	                        >
+	                        <span
+			                    popover-trigger="mouseenter"
+			                    popover-html='true'
+			                    popover-placement="right"
+			                    uib-popover="{{checklist.state | capitalize}}"
+	                         class="checklist-icon sprite {{checklist.state}}-state" ></span>{{checklist.name}}
+	                    </li>
+	                </ul>
+	            </li>
+	        </ul>
+	    </li>
+	</ul>
+</section>
+<section id="menu-recent" class="menu-engagements-category">
+	<h2 class="menu-engagement-category-title">Recent</h2>
+	<ul class="engagements-list">
+	    <li data-ng-repeat="engagement in vm.recent_engagements  | toArray | orderBy:'-last_update'"
+	        ng-class="{'selected': engagement.selected===true && vm.view_type != 'dashboard'}"
+	        id="{{engagement.engagement_manual_id}}"
+	        >
+	        <span ng-if="engagement.red_dot" class="red_dot sprite" alt="{{engagement.red_dot | capitalize}}" title="{{engagement.red_dot | capitalize}}"
+                    popover-trigger="mouseenter"
+                    popover-html='true'
+                    popover-placement="right"
+                     uib-popover="{{engagement.red_dot | capitalize}}"
+	        >
+	        </span>
+	        <span id="clickable-{{engagement.name}}" class="clickable" ng-click="vm.selectEngagement(engagement.uuid,'overview');" > {{engagement.name}}</span>
+	        <ul class="engagement-details" data-ng-if="engagement.selected===true && vm.view_type != 'dashboard'">
+	            <li
+	                id="overview-{{engagement.name}}" ng-click="vm.selectEngagement(engagement.uuid,'overview');"
+	                ng-class="{'selected': engagement.page == 'overview'}"
+	                class="clickable"
+	             >
+
+	             <span class="engagement_detail_menu_name">Overview</span>
+	             <span class="engagement_detail_menu_raquo" ng-if="engagment.page == 'overview'">&raquo;</span>
+	             </li >
+	            <li
+	                id="detailed-view-{{engagement.name}}" ng-click="vm.selectEngagement(engagement.uuid,'detailedview');"
+	                ng-class="{'selected': engagement.page == 'detailedview'}"
+	                class="clickable"
+	            >
+		            <span class="engagement_detail_menu_name" >Detailed View</span>
+		            <span class="engagement_detail_menu_raquo" ng-if="engagment.page == 'detailedview'">&raquo;</span>
+	            </li>
+	            <li class="engagement-details-sub-catgeory" ng-if="vm.isEngagementEL || vm.isAdmin">
+	                <span class="sub-category-title">Checklist
+	                    <span data-ng-if="vm.isReviewer || vm.isAdmin" id="checklist-plus-{{vm.engagement.uuid}}" class="clickable add-checklist fa fa-plus-circle" data-ng-click="vm.addChecklist(vm.engagement.uuid)" class="clickable"></span>
+	                </span>
+	                <ul class="engagement-checklist" data-ng-if="engagement.selected===true">
+	                    <li
+	                        data-ng-repeat="checklist in engagement.checklists"
+	                        id="checklist-{{checklist.uuid}}"
+	                        ng-class="{
+	                            'clickable' : vm.user.uuid == checklist.owner__uuid || vm.isAdmin,
+	                            'disabled' : ((vm.user.uuid != checklist.owner__uuid) && !vm.isAdmin) || (checklist.state == 'closed' && !vm.isAdmin),
+	                            'selected': engagement.sub_id == checklist.uuid
+	                        }"
+							alt="{{checklist.state | capitalize }}"
+	                        ng-click=" ( (checklist.state != 'closed' && (vm.user.uuid == checklist.owner__uuid || vm.isAdmin)) || ((checklist.state == 'closed') && vm.isAdmin) ) && vm.selectEngagement(engagement.uuid,'checklist',checklist.uuid);"
+	                        ><span
+   			                    popover-trigger="mouseenter"
+			                    popover-html='true'
+			                    popover-placement="right"
+			                    uib-popover="{{checklist.state | capitalize}}"
+	                        class="checklist-icon sprite {{checklist.state}}-state" ></span>{{checklist.name}}
+	                    </li>
+	                </ul>
+	            </li>
+	        </ul>
+
+	    </li>
+	</ul>
+</section>
+<ice-tool-tip></ice-tool-tip>
+</div>
+

@@ -1,0 +1,552 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+.cl-add-item-line {
+    width: 80%;
+
+    .add-button {
+        .sprite;
+        .sprite.small-grey-add;
+        display: inline-block;
+        cursor: pointer;
+        position:relative;
+        top:3px;
+    }
+}
+
+.cl-action-button{
+    width: 30%;
+    margin-bottom: 2%;
+    margin-right: 3%;
+    &:last-child {
+        margin-right: 0;
+    }
+
+}
+
+.checklist-template-edit-item {
+	padding: 5px;
+    &.edit-template-name{
+        .a_24_r;
+    }
+
+    &.edit-section-name{
+        .m_24;
+    }
+
+    &.edit-lineitem-name{
+        .m_18;
+        background-color: white;
+        line-height: normal;
+    }
+    &.edit-lineitem-description{
+        .m_18;
+        width: 100%;
+        line-height: normal;
+    }
+}
+
+.glyphicon-cursor-approve-changes {
+    display: inline-block;
+    cursor: pointer;
+    position:relative;
+    top:3px;
+    float: right;
+}
+
+.lineitem-changed-icon {
+    .sprite;
+    .sprite.grey-check-mark;
+    display: inline-block;
+    cursor: pointer;
+    position:relative;
+    top:3px;
+    margin-left: -15px;
+}
+
+.remove-item {
+    .sprite;
+    .sprite.red-delete;
+    display: inline-block;
+    cursor: pointer;
+    position:relative;
+    top:3px;
+    float: right;
+    margin-right: 1%;
+}
+
+.template-edit-item {
+    .sprite;
+    .sprite.edit-medium;
+    display: inline-block;
+    cursor: pointer;
+    position:relative;
+    top:3px;
+    float: right;
+}
+
+.add-another-section {
+    .sprite;
+    .sprite.big-grey-add;
+    display: inline-block;
+    cursor: pointer;
+    position:relative;
+    top:3px;
+}
+
+.another-section {
+    border-top: 1px dashed ;
+    padding-top: 0.5%;
+}
+
+
+.checklist-template {
+    height:100%;
+
+	#checklist-main-section {
+	    padding-left: 12px;
+    }
+
+    .ice-form-error {
+        text-transform: none;
+    }
+
+    .section-topic{
+        padding-left: 4%;
+        .m_24_m;
+    }
+
+    .lineitem-index{
+        padding-left: 5%;
+    }
+
+    .lineitem-icon-and-index{
+        padding-left: 0px;
+    }
+
+    #cl-header {
+        height:12%;
+        padding-top:1%;
+        padding-bottom: 2%;
+
+        .checklist-template-topic{
+            border-right: 1px solid;
+
+            #cl-title {
+                padding-left: 0px;
+
+                .template-name {
+                    .a_24_r;
+                }
+
+                .template-topic {
+                    .a_24_m;
+                }
+            }
+
+            .edit-checklist {
+                display: inline-block;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+
+
+
+
+
+ 	#state-actions .btn {
+         width: 100%;
+     }
+
+     .action-buttons{
+         width: 100%;
+         margin-bottom: 7px;
+     }
+
+
+
+     .add-icon {
+         .sprite;
+         .sprite.add;
+         display: inline-block;
+     }
+
+
+     .add-button {
+         margin-top: 8px;
+         .add-text {
+             .a_16_m;
+             vertical-align: top;
+             margin-left: 6px;
+         }
+
+     }
+
+
+
+
+        #cl-title h1 {
+            .a_24_r;
+            margin: 0 0 30px 0;
+        }
+
+        h3 {
+            .m_18_m;
+        }
+        h2 {
+            margin: 0 0 10px 0;
+            .a_24_m;
+            position: relative;
+            .add-people,
+            .add-step {
+                .sprite;
+                .sprite.add;
+                display: inline-block;
+                margin-left: 8px;
+                cursor: pointer;
+            }
+        }
+
+        .main-section {
+            margin-top: 30px;
+        }
+    }
+
+
+    #state-bar {
+        float:none;
+        height: 5%;
+
+    }
+
+
+
+    #cl-header > #cl-title > span.bold {
+        .a_24_m;
+    }
+
+
+    .cl-action-buttons-frame{
+        list-style: none;
+        display: inline;
+        padding-top: 20px;
+    }
+
+
+
+    #line-item-list {
+        list-style: none;
+        padding-right:15px;
+    }
+
+
+    #line-item-list > li {
+        margin-bottom: 25px;
+    }
+    #line-item-list > li > h2 {
+        text-transform: capitalize;
+        border-bottom: 1px solid;
+        border-color: @main_color_q;
+        width: 100%;
+        margin-bottom: 0px;
+        padding-left: 5px;
+        .m_24;
+    }
+    #line-item-list > li > h2 > span.bold {
+        .m_24_m;
+    }
+
+    #line-item-list > li > ul {
+        list-style: none;
+    }
+    #line-item-list > li > ul >li.line-item-row {
+        border-bottom: 1px solid;
+        border-color: @main_color_q;
+        line-height: 30px;
+        padding: 0px;
+        vertical-align: middle;
+        height: 30px;
+        .m_16_r;
+        cursor: pointer;
+    }
+
+    #line-item-list > li > ul >li.line-item-row .value-icon {
+        padding: 0px;
+    }
+
+    #line-item-list > li > ul >li.line-item-row .value-icon span {
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        margin-right: 5px;
+        margin-left: 3px;
+        width:15px;
+        height:15px;
+    }
+
+    #line-item-list > li > ul >li.line-item-row .auto-icon {
+        text-align:right;
+        padding: 0px;
+    }
+
+    #line-item-list > li > ul >li.line-item-row .auto-icon span {
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        margin-right: 3px;
+    }
+
+    #line-item-list > li > ul >li.line-item-row.selected-line {
+        background-color:  @bg_color_a;
+        border-left: 2px solid;
+        border-top: 2px solid;
+        border-bottom: 2px solid;
+        border-color: @main_color_a;
+        position:relative;
+        z-index:1;
+        top: -1px;
+        left: -2px;
+    }
+
+    #line-item-list > li > ul >li.line-item-row.selected-line  > .selected-line-connector {
+        position: absolute;
+        right: -19px;
+        width: 20px;
+        height: 30px;
+        top: -2px;
+        background-color:  @bg_color_a;
+        border-top: 2px solid;
+        border-bottom: 2px solid;
+        border-color: @main_color_a;
+    }
+    #line-item-extended {
+        background-color:  @bg_color_a;
+        border: 2px solid;
+        border-color: @main_color_a;
+        padding:15px;
+        @media (min-width: 992px) {
+            max-height: 100%;
+            overflow-y: auto;
+        }
+    }
+    #line-item-extended >header {
+        padding: 0 30px;
+        padding-bottom: 0px;
+    }
+    #line-item-extended >header > h2 {
+        text-transform: capitalize;
+        padding:0px;
+        margin:0px;
+        line-height:32px;
+        .m_18_r;
+    }
+    #line-item-extended > header > h2 > span.bold {
+        .m_18_m;
+    }
+    #line-item-extended >header > #decision-actions {
+        list-style: none;
+        text-align: right;
+        margin:0px;
+    }
+    #line-item-extended >header > #decision-actions > li {
+        display: inline-block;
+        margin-left: 2px;
+        .sprite;
+    }
+    #line-item-extended >header > #decision-actions.active > li {
+        cursor:pointer;
+    }
+
+    #line-item-extended >header > #decision-actions > li.not-relevant-btn {
+        .sprite.not-relevant-btn;
+    }
+
+    #line-item-extended >header > #decision-actions.active > li.not-relevant-btn:hover {
+        .sprite.not-relevant-btn-active;
+    }
+    #line-item-extended >header > #decision-actions > li.not-relevant-btn.active {
+        .sprite.not-relevant-btn-active;
+    }
+    #line-item-extended >header > #decision-actions > li.denied-cl-btn {
+        .sprite.denied-cl-btn;
+    }
+    #line-item-extended >header > #decision-actions.active > li.denied-cl-btn:hover {
+        .sprite.denied-cl-btn-active;
+    }
+    #line-item-extended >header > #decision-actions > li.denied-cl-btn.active {
+        .sprite.denied-cl-btn-active;
+    }
+    #line-item-extended >header > #decision-actions > li.approved-cl-btn {
+        .sprite.approved-cl-btn;
+    }
+    #line-item-extended >header > #decision-actions.active > li.approved-cl-btn:hover {
+        .sprite.approved-cl-btn-active;
+    }
+    #line-item-extended >header > #decision-actions > li.approved-cl-btn.active {
+        .sprite.approved-cl-btn-active;
+    }
+
+
+    #line-item-extended > #line-item-description {
+        margin: 0 15px;
+        .m_16_r;
+    }
+
+    #line-item-extended > #line-item-validation-instructions {
+        .m_14_r;
+        background-color: #fff;
+        border: 1px solid;
+        border-color: @main_color_a;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    #line-item-extended > #line-item-validation-instructions h3 {
+        text-transform: capitalize;
+        margin: 0px;
+        .m_18_m;
+    }
+
+    #line-item-extended > #line-item-validation-instructions p {
+        margin-top: 5px;
+
+    }
+
+    #line-item-extended > #line-item-validation-instructions p ul {
+        padding-left: 15px;
+    }
+
+    #line-item-extended > #line-item-audit-logs {
+        padding:0 15px;
+    }
+
+    #line-item-extended > #line-item-audit-logs > h3 {
+        text-transform: capitalize;
+        .m_18_m;
+
+    }
+    #line-item-extended > #line-item-audit-logs > #audit-log-list  {
+        list-style:none;
+
+    }
+    #line-item-extended > #line-item-audit-logs > #audit-log-list > li {
+        margin: 0 15px 10px;
+        border-bottom: 2px solid;
+        border-color: @main_color_q;
+    }
+    #line-item-extended > #line-item-audit-logs > #audit-log-list > li > .audit-creator {
+        .m_16_m;
+        margin:0px;
+        padding:0px;
+    }
+    #line-item-extended > #line-item-audit-logs > #audit-log-list > li > .audit-date {
+        text-align:right;
+        .m_14_r;
+        padding:0px;
+    }
+    #line-item-extended > #line-item-audit-logs > #audit-log-list > li > .audit-text {
+        .m_16_r;
+        margin-bottom:0px;
+        padding:0px;
+    }
+
+    #line-item-extended > #line-item-audit-logs > #new-audit-log-from {
+        margin: 0 0 15px;
+    }
+
+    #line-item-extended > #line-item-audit-logs > #new-audit-log-from #new-audit-log-text {
+        border-color: @main_color_q;
+        margin-bottom:15px;
+    }
+
+    .btn-gradient-primary {
+        font-weight: bold;
+        color: #FFFFFF;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-color: #37B2E5;
+        *background-color: #37B2E5;
+        background-image: -moz-linear-gradient(top, #0079AB, #37B2E5);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0079AB), to(#37B2E5));
+        background-image: -webkit-linear-gradient(top, #0079AB, #37B2E5);
+        background-image: -o-linear-gradient(top, #0079AB, #37B2E5);
+        background-image: linear-gradient(to bottom, #0079AB, #37B2E5);
+        background-repeat: repeat-x;
+        border-color: #37B2E5;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0079AB', endColorstr='#37B2E5', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    }
+
+    .btn-gradient-success {
+        font-weight: bold;
+        color: #FFFFFF;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-color: #41A02C;
+        *background-color: #41A02C;
+        background-image: -moz-linear-gradient(top, #A2E652, #41A02C);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#A2E652), to(#41A02C));
+        background-image: -webkit-linear-gradient(top, #A2E652, #41A02C);
+        background-image: -o-linear-gradient(top, #A2E652, #41A02C);
+        background-image: linear-gradient(to bottom, #A2E652, #41A02C);
+        background-repeat: repeat-x;
+        border-color: #41A02C;
+        border-color: #888;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2E652', endColorstr='#41A02C', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    }
+
+    .btn-gradient-danger {
+        font-weight: bold;
+        color: #FFFFFF;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-color: #AE0020;
+        *background-color: #AE0020; 
+        background-image: -moz-linear-gradient(top, #F74658, #AE0020);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F74658), to(#AE0020));
+        background-image: -webkit-linear-gradient(top, #F74658, #AE0020);
+        background-image: -o-linear-gradient(top, #F74658, #AE0020);
+        background-image: linear-gradient(to bottom, #F74658, #AE0020);
+        background-repeat: repeat-x;
+        border-color: #AE0020;
+        border-color: #888;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F74658', endColorstr='#AE0020', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    }
+

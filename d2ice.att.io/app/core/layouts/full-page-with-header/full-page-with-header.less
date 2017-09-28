@@ -1,0 +1,112 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+#full-page-with-header {
+    margin-top: 59px;
+    background: url('images/top.jpg') no-repeat 0 0;
+
+    #content {
+        overflow: auto;
+        position: absolute;
+        top: 201px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: auto;
+    }
+
+    #header-title {
+        height: 130px;
+    }
+
+    .banner {
+        -webkit-box-shadow:0 1px 2px rgba(43, 48, 51, 0.08);
+        -moz-box-shadow:0 1px 2px rgba(43, 48, 51, 0.08);
+        box-shadow:0 1px 2px rgba(43, 48, 51, 0.08);
+        z-index:20;
+    }
+
+    .navbar {
+        background-color:#fff;
+        margin-bottom:0;
+    }
+
+    #logo {
+        float:left;
+        display:block;
+        margin:20px 0;
+    }
+    #logo .logo-trans {display:none}
+
+    /* Transparent Header */
+    .banner[data-transparent-header="true"] {
+        width:100%;
+        /*top:0;
+        left:0;
+        position:absolute;
+        overflow:visible !important;*/
+        z-index:9998;
+        background-color:transparent;
+        box-shadow:none;
+        -webkit-box-shadow:none;
+        -moz-box-shadow:none;
+        -o-box-shadow:none;
+        border-bottom:1px solid rgba(255,255,255,0.25) !important;
+    }
+
+    .boxed-mode .banner[data-transparent-header="true"] {
+        left:0; right:0; margin:0 auto;
+    }
+
+    .banner[data-transparent-header="true"] #logo .logo-trans {display:inline}
+    .banner[data-transparent-header="true"] #logo .logo-main {display:none}
+
+    .banner[data-transparent-header="true"] .navbar-nav > li > a,
+    .banner[data-transparent-header="true"] .navbar-nav > li.active > a {color:#fff}
+    .banner[data-transparent-header="true"] .navbar-nav > li > a:hover,
+    .banner[data-transparent-header="true"] .navbar-nav > li.active > a:hover {color:#fff}
+
+    .banner[data-transparent-header="true"] .navbar-nav > li > a:hover:after,
+    .banner[data-transparent-header="true"] .navbar-nav > li.active > a:after,
+    .banner[data-transparent-header="true"] .navbar-nav > li.active > a:hover:after,
+    .banner[data-transparent-header="true"] .navbar-nav > li.active > a:focus:after {background-color:#fff}
+
+    .menu-seperator {
+        .p_14_r;
+    }
+}

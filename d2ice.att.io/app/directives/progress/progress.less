@@ -1,0 +1,184 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+.steps-progress-wrapper {
+    position: relative;
+    border: 1px solid;
+    border-color: @main_color_o;
+    padding: 10px 15px;
+    background-color: @main_color_p;
+
+    .progress-side-info {
+    	padding: 0 10px;
+		margin-top: 4px;
+
+        .value {
+            line-height: 20px;
+            .m_12_r;
+        }
+
+        .progress-side-info-row {
+            .m_12_m;
+            line-height:20px;
+
+            .progress-side-info-first-row {
+                padding-top: 1%;
+            }
+
+            .progress-side-info-last-row {
+                padding-bottom: 1%;
+            }
+        }
+    }
+
+    .progress-body-content {
+		.progress-left-content {
+		        border-right: solid 1px  @main_color_o;
+
+		}
+
+        .progress-version-release {
+            margin-top: 5px;
+            color: @main_color_m
+        }
+
+        .description {
+            .progress-title {
+                .b_20;
+
+                .manual-id {
+                    .b_20_m;
+                }
+
+                .progress-click {
+                	cursor:pointer;
+                }
+
+                .progress-question-mark {
+                    font-size: 20px;
+                    color: @main_color_r;
+                    display: inline-block;
+                    margin-left: 1px;
+                    cursor: pointer;
+                    position: relative;
+                    top: 1px;
+                }
+
+                .star-engagement-action {
+                    display: inline-block;
+                    cursor: pointer;
+                    position: relative;
+                    margin-right: 5px;
+                }
+            }
+
+            .progress-edit-days-left {
+                float: right;
+                position: relative;
+                margin-right: 1%;
+
+                .steps-progress-days-left {
+                    .m_14_m;
+                    vertical-align: bottom;
+                }
+
+                .edit {
+                    .sprite;
+                    .sprite.edit-medium;
+                    display: inline-block;
+                    cursor: pointer;
+                    position:relative;
+                    top:3px;
+                }
+            }
+        }
+
+        .steps-progress-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            overflow: hidden;
+            border: solid 1px @main_color_o;
+            height: 30px;
+
+            .progress-filled {
+                background-color: red;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1672a4+0,c2e1f2+100 */
+                background: @gradient_left; /* Old browsers */
+                background: -moz-linear-gradient(left, @gradient_left 0%, @gradient_right 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(left, @gradient_left 0%, @gradient_right 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, @gradient_left 0%, @gradient_right 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@gradient_left, endColorstr=@gradient_right, GradientType=1); /* IE6-9 */
+                border-right: solid 1px @main_color_o;
+            }
+
+            .progress-empty {
+                position: relative;
+
+                &.right {
+                    .percents {
+                        left: 10px;
+                    }
+                    .edit {
+                        left: 50px;
+                    }
+                }
+
+                .edit {
+                    font-size: 21px;
+                    color: @main_color_r;
+                    display: inline-block;
+                    position: absolute;
+                    top: 5px;
+                    left: -25px;
+                    cursor: pointer;
+                }
+
+                .percents {
+                    position: absolute;
+                    top: 4px;
+                    left: -60px;
+                }
+
+                &.full {
+               		 .percents { left: -70px; }
+          		}
+            }
+        }
+    }
+}

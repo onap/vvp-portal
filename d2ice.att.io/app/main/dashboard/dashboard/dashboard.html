@@ -1,0 +1,111 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="dashboard-view row">
+	<div class="col-md-8 " id="dashboard-main-panel">
+		<header class="row col-md-12" id="dashboard-header">
+			<h1 class="col-md-4" id="dashboard-title">Statuses</h1>
+			<span class="col-md-8 search-filters">
+				Stage
+				<select id="search-filter-stage" class="form-control search-filter-stage" ng-model="vm.search_stage" ng-change='vm.onStageChange()' ng-options="stage for stage in vm.stages ">
+					<option value="all" selected>All</option>
+					<option value="Intake">Intake</option>
+					<option value="Active">Active</option>
+					<option value="3">3</option>
+				</select>
+			    <input type="text"
+		   		  id="search-filter-keyword"
+		   		  ng-model="vm.search_keyword"
+                  ng-model-options="{ debounce: 150 }"
+		    	  placeholder="Search by EID, VF or VFC"
+		    	  class="form-control"
+		    	  ng-change='vm.onKeywordChange()'
+		    	 >
+			</span>
+		</header>
+		<content class="row col-md-12" id="search-results">
+             <div class="col-md-12 progress-bar-row" dir-paginate="engagement in vm.vf_display_list | itemsPerPage: vm.pagination_num_of_objects" total-items="vm.num_of_returned_items" current-page="vm.page_num" track by engagement.engagement__uuid >
+                 <progress-directive
+                     progress="{{engagement.engagement__progress}}"
+                     enable-edit=false
+                     data="engagement.progress_needed_data"
+                     statuses=true
+                     enable-refresh=false>
+                 </progress-directive>
+             </div>
+         	 <span class="col-md-12" id="export-to-csv" ng-click="vm.exportEngagementCSV()">Export to Excel >></span>
+             <dir-pagination-controls on-page-change="vm.searchEngagements()" class="col-md-12" id="engagements-pagination"></dir-pagination-controls>
+		</content>
+	</div>
+    <aside class="col-md-4 " id="dashboard-side-panel">
+    	<div class="col-md-12" id="assgined-nextsteps">
+    		<div id="next-steps-header">Assigned To You ({{vm.userNextStepsCount}})</div>
+    		<ul id="next-steps-list">
+    			<h4 class="engagement-title" ng-if="vm.userNextSteps.length == 0">No next steps are assigned to you.</h4>
+    			<li data-ng-repeat="step in vm.userNextSteps | orderBy: 'due_date'" class="next-step-details">
+    				<div class="next-step-details-header row">
+	    				<h2 class="engagement-title col-md-8" name="{{step.engagement_manual_id}}" ng-click="vm.goToEngagement(step.engagement_uuid)">Engagement - <span class="engagement-name">{{step.engagement_manual_id}}: {{step.vf_name}}</span></h2>
+	    				<span class="due-date col-md-4">
+	    					<i class="fa fa-clock-o"></i>
+                            <span class="due-date-icon" name="duedate-{{step.due_date}}"></span>{{step.due_date | date2: 'EEEE  MMMM doo yyyy'}}
+	    				</span>
+    				</div>
+    				<p class="next-step-description"  name="description-{{step.engagement_manual_id}}" ng-bind-html="step.description | htmlspecialchars"></p>
+    				<span class="next-step-creation"  name="creator-full-name-{{step.creator_full_name}}">Added at {{step.create_time | date2: 'EEEE  MMMM doo yyyy'}} by {{step.creator_full_name}}</span>
+    			</li>
+    		</ul>
+    	</div>
+    	<div class="line-seperator col-md-12" data-ng-if="vm.isEngagmentEL || vm.isAdmin || vm.isAdminRo" ></div>
+    	<div class="col-md-12" data-ng-if="vm.isEngagmentEL || vm.isAdmin || vm.isAdminRo" id="statistics">
+    		<div id="statistics-header" class="row">
+    			<h2 class="col-md-4">Statistics</h2>
+				<span class="col-md-8 search-filters">
+					Stage
+                    <select class="search-filter-stage" ng-model="vm.statistic_stage_filter" ng-change='vm.request_statistics_data()' ng-options="stage for stage in vm.stages "></select>
+				</span>
+    		</div>
+
+    		<div id="statistics-list" class="row">
+   				<span class="col-md-8 statistic-name">Validations</span><span class="col-md-4 statistic-count" id="id-validations-num">{{vm.vfc_num}}</span>
+   				<span class="col-md-8 statistic-name">Engagements</span><span class="col-md-4 statistic-count" id="id-engagements-num">{{vm.eng_num}}</span>
+    		</div>
+    	</div>
+        <div class="line-seperator col-md-12"></div>
+        <ice-news-and-announcement limit="5" show-description="true"></ice-news-and-announcement>
+    </aside>
+</div>

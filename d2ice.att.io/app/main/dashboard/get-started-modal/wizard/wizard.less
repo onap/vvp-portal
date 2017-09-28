@@ -1,0 +1,255 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+.dev-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.reject_large {
+    .actions-sprite;
+    .actions-sprite.reject_large;
+    cursor: pointer;
+}
+
+.modal-content {
+    .getting-started-wizard {
+        .modal-header {
+            display: flex;
+            flex-direction: row;
+
+            h2, h3 {
+                display: inline-block;
+                flex-grow: 10;
+            }
+        }
+
+        .modal-body {
+            .btn {
+                width: 100%;
+            }
+
+            .btn-primary {
+                border: 1px solid #8799A3;
+                border-radius: 6px;
+                background: #1E79B0; /* For browsers that do not support gradients */
+                background: -webkit-linear-gradient(#1E79B0, #62ADD5); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#1E79B0, #62ADD5); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#1E79B0, #62ADD5); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#1E79B0, #62ADD5); /* Standard syntax (must be last) */
+            }
+        }
+    }
+}
+
+.getting-started-wizard {
+
+
+
+
+
+	 md-datepicker.btn.datepicker_btn {
+		 .md-datepicker-input {
+			  width: 100%;
+			  text-align: center;
+			  line-height: 32px;
+	  	}
+	}
+	#vf-name-title {
+		font-size: 16px;
+	}
+	#title-key-metadata{
+		font-size: 16px;
+		position: relative;
+	    top: 20px;
+	    left: 30px;
+	    background: white;
+	    padding: 0 20px;
+	    margin-top: -15px;
+	}
+	.fields_key_metadata{
+		border:1px solid #ccc;
+		padding: 26px 10px;
+	
+	}
+    /* Override addVf pages styles */
+    .container {
+        width: auto;
+
+        .col-md-2 { width: 0; }
+        .col-md-8 { width: 100%; }
+
+        .table-container-flex .flex-item {
+            padding: 5px 5px;
+        }
+
+        .remove-button {
+            display: none;
+        }
+    }
+
+    .table-container-flex {
+
+        .flex-item:nth-child(1) {
+            padding-left: 0;
+            flex-grow: 33;
+        }
+
+        .flex-item:nth-child(2) {
+            flex-grow: 33;
+        }
+
+        .flex-item:nth-child(3) {
+            flex-grow: 33;
+        }
+
+    }
+
+    ul.step-indication {
+        list-style: none;
+        display: inline-block;
+
+        li {
+            display: inline-block;
+            background-color: #DDDDDD;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            padding: 6px 11px;
+            .m_14_m;
+
+            &.selected {
+                .p_14_m;
+                background-color: #1370A3;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .addVendorContact-form {
+        padding: 20px 0 0 0;
+
+        button {
+            margin-top: 10px;
+        }
+    }
+
+    .inviteMembers-form {
+        padding: 20px 0 0 0;
+
+        button {
+            margin-top: 10px;
+        }
+
+        .add-button {
+            margin-top: 8px;
+            display: block;
+            .add-text {
+                .a_16_m;
+                vertical-align: top;
+                margin-left: 6px;
+            }
+            .add-icon {
+                .sprite;
+                .sprite.add;
+                display: inline-block;
+            }
+        }
+
+        .remove-button {
+            vertical-align:middle;
+            .a_16_m;
+            cursor: pointer;
+
+            .remove-icon {
+                display: inline-block;
+                vertical-align: text-top;
+                margin-right: 6px;
+                .sprite;
+                .sprite.delete-circle;
+                cursor: pointer;
+            }
+        }
+
+
+        .remove-button {
+            vertical-align:middle;
+            .a_16_m;
+            cursor: pointer;
+
+            .reject-large {
+                display: inline-block;
+                vertical-align: text-top;
+                margin-right: 6px;
+                .sprite;
+                .sprite.delete-circle;
+                cursor: pointer;
+            }
+        }
+
+        .input-wrapper {
+            margin-bottom: 10px;
+        }
+
+    }
+
+    .addVf-form {
+        padding: 0;
+    }
+
+    .addSsh-form {
+        padding: 0;
+
+        .form-group {
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        textarea {
+            min-height: 80px;
+        }
+    }
+
+}

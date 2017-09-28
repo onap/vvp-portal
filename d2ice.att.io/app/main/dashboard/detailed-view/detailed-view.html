@@ -1,0 +1,109 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div id="detailed-view">
+    <div class="row">
+        <h1 ><span class="bold">{{vm.engagement_manual_id + ': '}}</span>{{vm.vf_name}}  </h1>
+    </div>
+    <div class="vfc-main-section row">
+        <div class="col-xs-4 col-md-4 vfc-steps">
+           <div id="validation-details">
+	            <div id="validation-details-header">
+	                <span id="vd-title">Validation Details</span><span class="add-vdetails"></span>
+	                <i class="edit-target-completion fa fa-pencil-square-o" id="update-validation-details"  ng-click="vm.editValidationDetails()" class="add-vdetails" ></i>
+	            </div>
+	            <div id="validation-details-content">
+	                <div >
+		                <div class ="line ecomp_release_field " ng-if="!vm.is_ecomp_edit_mode"><span id="ecomp-release-headline">ECOMP Release:</span> <span id="ecomp_version_{{vm.ecomp_release.name}}">{{vm.ecomp_release.name}}</span></div>
+		        </div>
+		            <div>
+		                <div class ="line dtversion_field" ng-if = "vm.is_aic_edit_mode === false"><span id="target-aic-version-headline">Target AIC Version:</span><span id="aic_version_{{vm.dtversion.version}}">{{vm.dtversion.version}}</span></div>
+		            </div>
+		            <div>
+ 						<div class ="line dtversion_field" ng-if = "vm.is_aic_edit_mode === false"><span id="vf-version-headline">VF Version: </span> <span id="vf_version_{{vm.vf_version}}">{{vm.vf_version}}</span></div>
+		            </div>
+	            </div>
+	        </div>
+	     <div id="target-lab-entry">
+            <div id="target-lab-entry-header">
+                <span>Target Lab Entry</span>
+                <i class="edit-target-completion fa fa-pencil-square-o" id="change-lab-entry-date"  data-ng-click="vm.changeTargetLabEntry()" aria-hidden="true"></i>
+            </div>
+            <div id="target-lab-entry-content">
+                <h4 class="target-lab-entry-content">{{vm.target_lab | date:'shortDate'}}</h4>
+            </div>
+        </div>
+            <div id="deployment-targets">
+                <div id="deployment-targets-header">
+                    <span>Deployment Targets </span><span ng-click="vm.addDTS()" class="add-vfc"></span>
+                    <i class="edit-target-completion fa fa-pencil-square-o" id="add-dt" ng-show="vm.isEngagementEL || vm.isAdmin" ng-click="vm.addDTS()" class="add-vfc" aria-hidden="true"></i>
+                </div>
+                <div id="deployment-targets-content">
+                <ul>
+                    <li class="step row" data-ng-repeat="dts in vm.dtsites track by dts.uuid" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false">
+                        <span id="visible-dts-{{dts.name}}" class = "col-md-10">{{dts.name}}</span>
+
+                        <span class = "remove-button col-md-2" ng-if="vm.dtsites.length > 0" ng-click='vm.deleteDTSite(vm.vf.uuid, dts.uuid)'>
+                            <span ng-show="hoverEdit"><span id="remove-dts-{{dts.uuid}}" class="remove-icon"></span></span>
+                        </span>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-md-4 vfc-column">
+            <div id="virtual-function-components" ng-if="vm.isEngagementEL || vm.isAdmin" >
+		        <div id="virtual-function-header">
+		            <span>Virtual Function Components </span><span id="virtual-vfc" ng-click="vm.addVfc()" class="add-vfc"></span>
+		            <i class="edit-target-completion fa fa-pencil-square-o" ng-show="vm.isEngagementEL || vm.isAdmin"  id="add-vfc" ng-if="vm.isEngagementEL || vm.isAdmin" ng-click="vm.addVfc()" class = "add-vfc" ></i>
+		        </div>
+		         <div id="virtual-function-content">
+			         <ul>
+						<li class="step row" data-ng-repeat="vfc in vm.vfcs track by vfc.uuid" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false">
+			              <span id="visible-dts-{{vfc.name}}" class = "col-md-10"> {{vfc.name +' (' + vfc.external_ref_id + ')'}}  </span>
+
+			              <span class="remove-button col-md-2" ng-if="vm.vfcs.length > 0 && (vm.isEngagementEL || vm.isAdmin)" ng-click='vm.deleteVfc(vfc.uuid)'>
+			              <span ng-show="hoverEdit"><span id="remove-vfc-{{vfc.uuid}}" class="remove-icon"></span></span>
+			              </span>
+			          </li>
+			         </ul>
+		         </div>
+		       </div>
+    </div>
+</div>
+</div>

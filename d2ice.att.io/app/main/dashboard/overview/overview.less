@@ -1,0 +1,575 @@
+//
+// ============LICENSE_START========================================== 
+// org.onap.vvp/portal
+// ===================================================================
+// Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+// ===================================================================
+//
+// Unless otherwise specified, all software contained herein is licensed
+// under the Apache License, Version 2.0 (the “License”);
+// you may not use this software except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//          http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+//
+// Unless otherwise specified, all documentation contained herein is licensed
+// under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+// you may not use this documentation except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//          https:creativecommons.org/licenses/by/4.0/
+//
+// Unless required by applicable law or agreed to in writing, documentation
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ============LICENSE_END============================================
+// 
+// ECOMP is a trademark and service mark of AT&T Intellectual Property.
+.dashboard {
+
+    .remove-user-from-eng {
+        .x_16_r;
+        float: right;
+        cursor: pointer;
+        .remove-icon {
+            .sprite;
+            .sprite.red-delete;
+            display: inline-block;
+            margin-left: 8px;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    .popover-title-name {
+	    .a_18_m;
+	}
+
+    .popover-title-company {
+        .a_18_r;
+    }
+
+    .popover-role-title {
+        .n_16_i;
+    }
+
+    .popover-details {
+        .popover-details-topic {
+            .m_16_m;
+        }
+        .popover-details-detail {
+		word-wrap: break-word;
+
+            .m_16_r;
+        }
+    }
+
+	.content-container #content .main-wrapper {
+        height: 100%;
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	    padding: 10px ;
+    }
+
+    .no-display-text{
+        .a_36_m;
+    }
+
+    .no-display{
+        display: none;
+    }
+
+    .overview {
+        #engagement-title {
+            color: @toolbar_background_color;
+        }
+        .manual-id {
+            .m_36_m;
+            color: @toolbar_background_color;
+        }
+
+        .filter-wrapper {
+            text-align: right;
+            padding:0px;
+            span {
+                padding: 0px;
+                margin-left: 5px;
+
+            }
+            .form-control-main-view{
+                margin-left: 5px;
+                display: inline;
+                padding: 6px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            }
+        }
+
+        .state-filter {
+            button {
+                padding: 0px 5px 0px 8px;
+                margin-bottom: 1px;
+            }
+
+            span {
+                right: 6px !important;
+                top: 9px !important;
+            }
+
+            a {
+                font-size: 14px;
+            }
+        }
+
+        .steps-progress-wrapper {
+            margin-top: 10px;
+        }
+
+        h1 {
+            display: inline-block;
+            .a_36;
+            margin: 0 0 30px 0;
+        }
+
+        h2 {
+            display: inline-block;
+            margin: 0 0 10px 0;
+            .a_24_m;
+            position: relative;
+            .add-people,
+            .add-step {
+                display: inline-block;
+                margin-left: 8px;
+                cursor: pointer;
+                position: relative;
+                top: 2px;
+            }
+        }
+
+        .main-section {
+            margin-top: 30px;
+        }
+
+        .steps-header {
+            background-color: @toolbar_background_color;
+            color: @main_color_p;
+            padding: 10px 0px 0px 0px;
+            margin: 0px 0px 0px -5px;
+
+            h2 {
+                font-size: 20px;
+                color: @main_color_p;
+            }
+
+            .steps-filter {
+                display: inline-block;
+                float: right;
+                .a_16_m;
+                .todo {
+                    .sprite;
+                    .sprite.todo;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+                .completed {
+                    .sprite;
+                    .sprite.pending;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+                .confirmed {
+                    .sprite;
+                    .sprite.approved;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        #engagement-target-completion {
+            border: 1px solid @target_completion_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #target-completion-header {
+    			background-color: @target_completion_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .edit-target-completion {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            .target-completion-content {
+                .f-type._16_r;
+                margin: 15px;
+            }
+        }
+
+        #engagement-status {
+            border: 1px solid @engagement_status_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #engagement-status-header {
+    			background-color: @engagement_status_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .add-engagement-status {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            .engagement-status-content {
+                .f-type._16_r;
+                margin: 15px;
+
+                #status-update-details {
+                    display:block;
+                    .m_12_r;
+                }
+
+                #status-description {
+                    margin: 3px 0px 0px 0px;
+                    .m_16_r;
+                }
+
+                .edit-engagement-status {
+                    font-size: 21px;
+                    padding-left: 6px;
+                    cursor:pointer;
+                    color: @main_color_m;
+                }
+            }
+        }
+
+        #engagement-team {
+            border: 1px solid @engagement_team_color;
+	        padding:0px;
+            margin-bottom: 20px;
+
+            #engagement-team-header {
+    			background-color: @engagement_team_color;
+    			.p_18_m;
+    			padding: 5px 5px 0;
+                line-height: 35px;
+
+                .add-team-member {
+                    font-size: 21px;
+                    vertical-align: middle;
+                    padding-left: 6px;
+                    cursor:pointer;
+                }
+    		}
+
+            .engagement-team-content {
+                .f-type._16_r;
+                margin: 15px;
+
+                ul.team-avatars {
+                    li.team-member-avatar {
+                        font-size: 40px;
+                        cursor:pointer;
+                        color: @engagement_team_color;
+                    }
+
+                    li {
+                        list-style: none;
+                        display: inline-block;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+
+        #star-engagement-action {
+            display: inline-block;
+            cursor:pointer;
+            position: relative;
+            bottom: 3px;
+            margin-right: 5px;
+        }
+
+        #star-engagement-action.not_starred{
+            .sprite.starred;
+        }
+
+        #star-engagement-action.is_starred {
+            .sprite.starred-selected;
+        }
+
+        #star-engagement-action.not_starred:hover{
+            .sprite.starred-selected;
+        }
+
+        #star-engagement-action.is_starred:hover {
+            .sprite.starred;
+        }
+
+        .steps {
+            padding-bottom: 140px;
+            padding-right: 20px;
+            padding-left: 20px;
+
+            ul {
+                li.step {
+                    border-bottom: dashed 1px @main_color_n;
+                    .step-wrapper {
+                        border-left: 2px solid transparent;
+                        margin: 7px 0px 7px 1px;
+                        &:hover {
+                            border-left: 2px solid @main_color_a;
+                            background-color: #DEF3FF;
+
+                            .description {
+                                .step-state {
+                                    &.incomplete {
+                                        color: @main_color_d;
+                                        opacity: 0.7;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .next-step-actions {
+                        display:none;
+                        height: 100%;
+                        width: 20px;
+                        position: relative;
+                        padding-top: 10px;
+                        float: left;
+                        left: -18px;
+                        margin-right: -20px;
+
+                        > span {
+                            margin-bottom: 3px;
+                            cursor: pointer;
+                            display:block;
+                        }
+						.order-nextstep {
+                            color: @main_color_o;
+                            cursor:pointer;
+						}
+                        .edit-next-step {
+                            cursor:pointer;
+                            color: @main_color_o;
+                        }
+                        .moveto-confirmed {
+                            .actions-sprite;
+                            .actions-sprite.approve_large;
+
+                        }
+                        .moveto-todo {
+                            .actions-sprite;
+                            .actions-sprite.reject_large;
+                        }
+                        .moveto-delete {
+                            cursor:pointer;
+                            color: @main_color_o;
+                        }
+
+                    }
+                    &:hover {
+                        .next-step-actions {
+                            display:block;
+                        }
+                        .details {
+                            .actions {
+                                span {
+                                    visibility: visible;
+                                }
+                            }
+                        }
+                    }
+
+                    div.completed {
+                        opacity: 0.7;
+                    }
+                    div.confirmed {
+                        opacity: 0.7;
+                    }
+
+                    .details {
+                        text-align: right;
+                        .next-step-due-date {
+                            color: @main_color_m;
+                            font-weight: bold;
+
+                            .icon {
+                                display: inline-block;
+                                margin-right: 5px;
+                                position: relative;
+                            }
+                        }
+
+                        .associated-files {
+                            color: @main_color_m;
+                            font-weight: bold;
+                            cursor: pointer;
+                        }
+
+                        ul.next-step-team-mates {
+                            li {
+                                list-style: none;
+                                display: inline-block;
+                                font-size: 27px;
+                                padding-left: 5px;
+                                color: @engagement_team_color;
+
+                                &.me {
+                                    color: @main_color_a;
+                                }
+                            }
+
+                        }
+
+                    }
+                    list-style: none;
+                    position: relative;
+
+                    .description {
+                        .m_16_r;
+
+                        padding:5px;
+
+                        input {
+                            position: absolute;
+                            top: 10px;
+                            left: 0;
+                            margin-right: 20px;
+                        }
+
+                        .step-text {
+                            margin-left: 35px;
+                        }
+                        .last-action-details {
+                            .m_12_r;
+                            .name {
+                                font-weight: bold;
+                                .m_12_m;
+
+                            }
+                        }
+                        .step-state {
+                            position: absolute;
+                            top: 25px;
+                            font-size: 25px;
+
+                            &.incomplete {
+                                color: @main_color_o;
+                                display: inline-block;
+                            }
+                            &.completed {
+                                color: @main_color_d;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .team-and-logs {
+            border-left: dashed 1px @main_color_a;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            .activity-log {
+
+	            border: 1px solid @engagement_team_color;
+		        padding:0px;
+	            margin-bottom: 20px;
+
+            	#activity-log-header {
+	    			background-color: @engagement_team_color;
+	    			.p_18_m;
+	    			padding: 5px 5px 0;
+	                line-height: 35px;
+	            }
+                ul.activity-log-details {
+                	margin:15px;
+                    li {
+                        list-style: none;
+                        position: relative;
+                        margin: 0 0 10px;
+
+                    }
+                }
+            }
+
+        }
+
+        .admin-actions-dropdown {
+        	.sprite.admin-dropdown;
+            color: @main_color_a;
+            font-size: 20px;
+            vertical-align: 4px;
+            margin-left: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+    }
+
+    .add-next-step-form {
+        .ice-wysiwyg {
+            height: 200px;
+            .wysiwyg-menu > div {
+                background-color: #f1f1f1;
+                padding: 2px;
+            }
+        }
+    }
+
+    .git-repo-url{
+        text-align: left;
+        .m_16_m;
+    }
+
+    .storage-bucket-url{
+        text-align: left;
+        .m_16_m;
+    }
+
+    .line-separator {
+        border-bottom: solid thin;
+        margin-top: 5px;
+        margin-bottom: 7px;
+        align-items: left;
+    }
+}
+
+.intl-tel-input {
+    width: 100%;
+}
+
+.iti-flag {
+    background-image: url(images/flags.png);
+}

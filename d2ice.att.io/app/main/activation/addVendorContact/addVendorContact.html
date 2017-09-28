@@ -1,0 +1,111 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-loader selector=".addVendorContact-form"></ice-loader>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <form name="addVendorContactForm" ng-submit="vm.submitForm()" novalidate class="addVendorContact-form col-md-8">
+
+            <div class="form-group" ng-class="{ 'has-error' : addVendorContactForm.company.$invalid && !addVendorContactForm.company.$pristine }">
+                <label class="ice-form-label required">Company</label>
+                <select style="width:100%" name="company" ng-model="vm.data.company" ng-options="company.name for company in vm.companies track by company.uuid" class="form-control" required></select>
+                <div class="ice-form-error" data-ng-show="addVendorContactForm.company.$error">
+                    <span ng-show="addVendorContactForm.company.$error.required && !addVendorContactForm.company.$pristine" class="help-block">Please select a company</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : addVendorContactForm.fullName.$invalid && !addVendorContactForm.fullName.$pristine }">
+                <label class="ice-form-label required">Full Name</label>
+                <input type="text" name="fullname" class="form-control" ng-model="vm.data.full_name" ng-minlength="3" ng-maxlength="50" maxlength="50" required>
+                <div class="ice-form-error" data-ng-show="addVendorContactForm.fullname.$error">
+                    <span ng-show="addVendorContactForm.fullname.$error.required && !addVendorContactForm.fullname.$pristine">Name is a required field.</span>
+                    <span ng-show="addVendorContactForm.fullname.$error.minlength">Full Name is too short.</span>
+                    <span ng-show="addVendorContactForm.fullname.$error.maxlength">Full Name is too long.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : addVendorContactForm.email.$invalid && !addVendorContactForm.email.$pristine }">
+                <label class="ice-form-label required">Email</label>
+                <input type="email" name="email" class="form-control" ng-model="vm.data.email" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' maxlength="254" required>
+                <div class="ice-form-error" data-ng-show="addVendorContactForm.email.$error">
+                    <span ng-show="addVendorContactForm.email.$error.required && !addVendorContactForm.email.$pristine">Email is a required field.</span>
+                    <span ng-show="addVendorContactForm.email.$invalid && !addVendorContactForm.email.$pristine" class="help-block">Enter a valid email.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : addVendorContactForm.phone.$invalid && !addVendorContactForm.phone.$pristine }">
+                <label class="ice-form-label required">Phone</label>
+                <input type="text" name="phone" class="form-control" ng-pattern="/^[\+\-0-9]+$/"  ng-model="vm.data.phone_number" ng-minlength="3" ng-maxlength="30" required>
+                <div class="ice-form-error" data-ng-show="addVendorContactForm.phone.$error">
+                    <span ng-show="addVendorContactForm.phone.$error.required && !addVendorContactForm.phone.$pristine">Phone is a required field.</span>
+                    <span ng-show="addVendorContactForm.phone.$error.minlength" class="help-block">Phone is too short.</span>
+                    <span ng-show="addVendorContactForm.phone.$error.maxlength" class="help-block">Phone is too long.</span>
+       		        <span ng-show="addVendorContactForm.phone.$error.pattern" class="help-block">Phone must consist of numbers only.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                <input type="checkbox" ng-model="vm.data.regular_email_updates" />&nbsp;I agree to receive regular email updates.
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" ng-model="vm.data.terms" required />&nbsp;I accept the AT&T's {{'program.name' | i18next}} Terms of Service and Privacy Policy.
+            </div>
+
+            <div id="frm-field-63-container" class="frm_form_field form-field  frm_top_container">
+                <label class="frm_primary_label">reCAPTCHA
+                    <span class="frm_required"></span>
+                </label>
+                <div id="field-7lj3ma" class="g-recaptcha" data-sitekey="6LeMMwYTAAAAACSY-OLibN7rdFHSnY9karY3VXW2"></div>
+                <div id="divre-captcha-err" class="frm_error_hide">reCAPTCHA is invalid.</div>
+            </div>
+            <input type="hidden" name="item_key" value="xxx" />
+
+            <button type="submit" class="btn btn-primary" data-ng-disabled="!addVendorContactForm.$valid">Sign Up</button>
+
+            <a ui-sref="app.login" class="login">Already have an account?</a>
+
+        </form>
+
+        <div class="col-md-2"></div>
+    </div>
+
+</div>

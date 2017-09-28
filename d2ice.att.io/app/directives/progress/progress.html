@@ -1,0 +1,82 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="steps-progress-wrapper">
+    <div class="row progress-body-content">
+        <span id="progress_bar_{{data.manual_id}}" class="progress-left-content col-md-8">
+            <div class="description">
+                <span ng-if="!statuses" class="progress-title "><span class="manual-id">Progress</span>
+                    <span uib-popover="This is where you can see the current progress in the validation.
+                                                  You will also see the projected days left before the {{'program.name' | i18next}} team has completed
+                                                  the validation."
+                                     popover-title="Progress"
+                                     popover-trigger="click"
+                                     popover-html='true'
+                                     popover-placement="right"
+                                     class="progress-question-mark fa fa-question-circle-o">
+                        <span ng-mouseover="" ng-mouseleave="" class="" data-ng-click="vm"></span>
+                    </span>
+                </span>
+                <span ng-if="statuses" class="progress-title">
+                     <span id="starred-{{data.manual_id}}" class="star-engagement-action fa" ng-class="data.starred ? 'fa-star' : 'fa-star-o'" ng-click="starEngagement()"></span>
+                    <span ng-click="goToEngagement(data.engagement_uuid)" class="progress-click" ><span class="manual-id" id="eng-{{data.manual_id}}: {{data.name}}">{{data.manual_id}}: </span>{{data.name}}</span>
+                </span>
+            </div>
+
+            <div class="steps-progress-bar">
+                <div class="progress-filled" ng-style="{'flex-grow': progress}"></div>
+                <div class="progress-empty" data-ng-class="{'right': progress<=50, 'full' : progress==100}" ng-style="{'flex-grow': 100-progress}">
+                    <span id="progress-percentage" class="percents">{{progress}}&nbsp;%</span>
+                    <span id="edit-change-progress" class="edit fa fa-pencil-square-o" data-ng-if="data.enable_edit" data-ng-click="changeProgress()"></span>
+                </div>
+            </div>
+            <div class="progress-version-release row">
+                <span class="col-md-4">Target AIC Version: {{data.aic_version}}</span>
+                <span class="col-md-4"> ECOMP Release: {{data.ecomp_release}}</span>
+                <span class="col-md-4"> VNF Version: <span class="vnf_version_value" ng-bind="data.vnf_version ? data.vnf_version : '-'"></span></span>
+            </div>
+        </span>
+        <span class="progress-side-info col-md-4">
+            <div class="row">
+            	<div><span class="progress-side-info-row progress-side-info-first-row col-md-7">Heat Validated:</span><span id="heat-validated-time" class="value col-md-5">{{data.heat_validated_time | date:'shortDate'}}</span></div>
+                <div><span class="progress-side-info-row col-md-7">Image Scan:</span><span id="image-scan-time" class="value col-md-5">{{data.image_scan_time | date:'shortDate'}}</span></div>
+                <div><span class="progress-side-info-row col-md-7">AIC Instantiation:</span><span id="aic-instantiation-time" class="value col-md-5">{{data.aic_instantiation_time | date:'shortDate'}}</span></div>
+                <div><span class="progress-side-info-row progress-side-info-last-row col-md-7">ASDC Onboarding:</span><span id="asdc-onboarding-time" class="value col-md-5">{{data.asdc_onboarding_time | date:'shortDate'}}</span></div>
+            </div>
+        </span>
+    </div>

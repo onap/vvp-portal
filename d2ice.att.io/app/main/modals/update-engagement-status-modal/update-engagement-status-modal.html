@@ -1,0 +1,97 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="update-engagement-status-modal">
+    <div class="modal-header row">
+        <button type="button" ng-click="vm.closeModal()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div id="update-engagement-status-title" class="update-engagement-status-title"><span>Update Status</span></div>
+        <span class="update-engagement-status-description">Use the form below to update status details of the engagement.</span>
+    </div>
+    <div class="modal-body row">
+        <form name="updateEngagementStatusForm" ng-submit="vm.updateEngagement()" novalidate="" class="">
+            <div class="form-group" ng-class="{ 'has-error' : updateEngagementStatusForm.progress.$invalid && updateEngagementStatusForm.progress.$dirty }">
+                <span class="form-field-title">Progress in %</span>
+                <input type="number" name="progress" class="form-control" ng-model="vm.engagement.progress" required="" min="0" max="100"/>
+                <div class="ice-form-error" data-ng-show="updateEngagementStatusForm.progress.$error">
+                    <span ng-show="updateEngagementStatusForm.progress.$error.required && updateEngagementStatusForm.progress.$dirty" class="help-block ng-hide" aria-hidden="true">Please enter progress</span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : updateEngagementStatusForm.targetCompletion.$invalid && updateEngagementStatusForm.targetCompletion.$dirty }">
+                <span class="form-field-title">Target Completion Date</span>
+                <md-datepicker ng-click="ctrl.openCalendarPane($event)" class="btn btn-default" ng-model="vm.engagement.target_completion_date"></md-datepicker>
+                <input type="hidden" name="targetCompletion" class="form-control" ng-model="vm.engagement.target_completion_date" required=""/>
+                <div class="ice-form-error" data-ng-show="updateEngagementStatusForm.targetCompletion.$error">
+                    <span ng-show="updateEngagementStatusForm.targetCompletion.$error.date && updateEngagementStatusForm.targetCompletion.$dirty" class="help-block ng-hide" aria-hidden="true">Please enter target completion date</span>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Validation Criteria</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <span class="form-field-title">HEAT Validated</span>
+                        <md-datepicker ng-click="ctrl.openCalendarPane($event)" class="btn btn-default" ng-model="vm.engagement.heat_validated_time"></md-datepicker>
+                        <input type="hidden" name="heatValidated" class="form-control" ng-model="vm.engagement.heat_validated_time"/>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-field-title">Image Scan</span>
+                        <md-datepicker ng-click="ctrl.openCalendarPane($event)" class="btn btn-default" ng-model="vm.engagement.image_scan_time"></md-datepicker>
+                        <input type="hidden" name="imageScan" class="form-control" ng-model="vm.engagement.image_scan_time"/>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-field-title">AIC Instantiation</span>
+                        <md-datepicker ng-click="ctrl.openCalendarPane($event)" class="btn btn-default" ng-model="vm.engagement.aic_instantiation_time"></md-datepicker>
+                        <input type="hidden" name="aicInstantiation" class="form-control" ng-model="vm.engagement.aic_instantiation_time"/>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-field-title">ASDC Onboarding</span>
+                        <md-datepicker ng-click="ctrl.openCalendarPane($event)" class="btn btn-default" ng-model="vm.engagement.asdc_onboarding_time"></md-datepicker>
+                        <input type="hidden" name="asdcOnboarding" class="form-control" ng-model="vm.engagement.asdc_onboarding_time"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : updateEngagementStatusForm.status.$invalid && updateEngagementStatusForm.status.$dirty }">
+                <span class="form-field-title">Status</span>
+                <textarea type="text" name="status" class="form-control" ng-model="vm.status" required=""></textarea>
+                <div class="ice-form-error" data-ng-show="updateEngagementStatusForm.status.$error">
+                    <span ng-show="updateEngagementStatusForm.status.$error.required && updateEngagementStatusForm.status.$dirty" class="help-block ng-hide" aria-hidden="true">Please enter status</span>
+                </div>
+            </div>
+            <button class="btn btn-primary col-md-12" data-ng-disabled="updateEngagementStatusForm.$invalid" type="submit">Submit</button>
+        </form>
+    </div>
+</div>

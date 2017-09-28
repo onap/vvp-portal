@@ -1,0 +1,107 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-toast is-modal="true"></ice-toast>
+<ice-loader selector=".checkList-form"></ice-loader>
+<div class="modal-header checkList">
+    <button type="button" ng-click="vm.closeModal()" id="close-modal-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="row margin_btm">
+        <h2 id="modal-header-checklist-15">{{vm.createUpadeTitle}} Checklist</h2>
+    </div>
+</div>
+<div class="modal-body checkList">
+    <form name="checkListForm" ng-submit="vm.submitForm()" novalidate class="checkList-form">
+
+        <div class="row margin_btm" ng-show ="vm.create" id="checklist-subject">
+            Use the form below to create checklist. Please do note that if a file is already associated with another checklist you will need to remove it from that checklist first to be able to associate it.
+        </div>
+        <div class="row margin_btm" ng-show ="vm.update" id="checklist-subject-update">
+            Use the form below to update the checklist. Please do note that if a file is already associated with another checklist you will need to remove it from that checklist first to be able to associate it.
+        </div>
+        <div class="row margin_btm">
+            <div class="col-md-8 row">
+                <h3 id="checklist-name-title" class="col-md-12">Name</h3>
+                <div class="col-md-12"><input type="text" placeholder="Checklist Name" name="checkListName" class="form-control" ng-model="vm.checkListName" maxlength="32" ng-trim="false" ng-pattern="/^[a-zA-Z0-9\&\ ]*$/" required></div>
+            </div>
+            <div class="col-md-4 row">
+                <h3 id="checklist-template-title" class="col-md-12">Checklist Template</h3>
+                <div class="col-md-12">
+                    <select id="please-select" ng-model="vm.selectedTemplateUuid" class="form-control" ng-if="vm.modalType === 'create'" required >
+                        <option value>Please Select</option>
+                        <option id="{{dt.name}}" ng-repeat="dt in vm.checkListTemplates" value="{{dt.uuid}}" ng-selected="{{dt.Selected == true}}">
+                            {{dt.name}}
+                        </option>
+                    </select>
+                </div>
+                <div ng-if="vm.modalType != 'create'" class="col-md-12">
+                    <span class="fnt">
+                        <input type="text" ng-model="vm.selectedTemplateName" class="form-control" disabled="true" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin_btm">
+            <h3 id="associated-files-title" class="col-md-12 col-no-top">Associate Files</h3>
+
+            <multiselect
+                ng-model="vm.selectedCheckListAssociatedFiles"
+                options="file.File for file in vm.checkListAssociatedFiles"
+                data-multiple="true"
+                scroll-after-rows="5"
+                filter-after-rows="5"
+                class = "col-md-12 checklist-modal-multi-select"
+                ms-header = "Select all associated files for the checklist"
+                ms-selected="{{vm.selectedCheckListAssociatedFiles.length > 1 ? vm.selectedCheckListAssociatedFiles.length + ' Associated files' : vm.selectedCheckListAssociatedFiles.length + ' Associated file'}} selected"
+                id="select-associated-files"
+                tabindex="-1">
+            </multiselect>
+        </div>
+        <div data-ng-show="checkListForm.checkListName.$error" class="ice-form-error">
+            <span ng-show="checkListForm.checkListName.$error.required && !checkListForm.checkListName.$pristine">Name is a required field.</span>
+            <span ng-show="checkListForm.checkListName.$error.maxlength">Provided name is too long.</span>
+            <span ng-show="checkListForm.checkListName.$error.pattern">Name should not include any special chars such as: ,\%_*."</span>
+        </div>
+        <div class="row margin_btm">
+            <div class="col-md-12">
+                <button id="btn-create-checklist" type="submit" class="btn btn-primary" data-ng-disabled="!checkListForm.$valid || vm.isDisabled">{{vm.modalTitle}} Checklist</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,172 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="row main-wrapper">
+<ice-loader selector=".steps"></ice-loader>
+<ice-loader selector=".activity-log"></ice-loader>
+<div class="row">
+    <div class="col-md-8">
+        <span id="star-engagement-action_{{vm.name}}" class="sprite starred" ng-class="vm.starred == true ? 'is_starred' : 'not_starred'" ng-click="vm.starEngagement()"></span>
+        <h1>{{vm.name}}</h1>
+    </div>
+    <span class="col-md-8 git-repo-url" ng-if="vm.git_repo_url && vm.stage!=vm.stages.intake"><B>GIT:</B>&nbsp;{{vm.git_repo_url}}</span>
+</div>
+<step-stages-directive stage="vm.stage" eng-name="{{vm.vf_name}}" reviewer="{{vm.reviewer_uuid}}" stage-num="vm.stage_num" eng-uuid="{{vm.uuid}}"></step-stages-directive>
+<div data-ng-if="vm.stage!=vm.stages.intake">
+    <progress-directive progress="{{vm.progress}}"
+                        vf="{{vm.vf}}"
+                        callback="vm.updateProgress"
+                        enable-edit="vm.isEngagementEL || vm.isAdmin"
+                        completion-date="{{vm.completion_date}}"
+                        engagement-uuid="{{vm.uuid}}"></progress-directive>
+</div>
+<div class="row main-section">
+    <div class="col-md-8 steps">
+        <div class="row steps-header">
+            <h2 class="col-md-6">Next Steps<span data-ng-if="vm.isEngagementEL || vm.isAdmin" id="add-next-step-button" class="add-step" data-ng-click="vm.addStep()"></span></h2>
+            <span class="col-md-6 filter-wrapper row">
+                <span >Files<multiselect id="selected-file-filter-dropdown" class="state-filter" ng-model="vm.chosen_files_filter" options="item for item in vm.files_filter_options" data-multiple="true" scroll-after-rows="5" filter-after-rows="5" ng-change="vm.is_all_files()" ms-header="Select files" tabindex="-1">
+                </multiselect></span>
+                <span >States<multiselect class="state-filter" ng-model="vm.selected_state_filter" options="item for item in vm.states_select" id="selected-state-filter-dropdown" data-multiple="true" scroll-after-rows="5" filter-after-rows="5" ng-change="vm.update_next_steps_choice()" ms-header="Select states" tabindex="-1">
+                </multiselect></span>
+            </span>
+        </div>
+        <ul class="step-indication">
+            <li class="step" data-ng-repeat="step in vm.steps | orderBy: 'due_date' as filtered_result track by step.uuid" ng-if="vm.is_match_both_filters(step)">
+                <div class="step-wrapper row" id="step-{{step.uuid}}" data-ng-class="{'completed': vm.states.completed==step.state && !vm.isEngagementEL, 'confirmed': vm.states.confirmed==step.state}">
+                    <aside class="next-step-actions" data-ng-if="vm.isEngagementEL || vm.isAdmin">
+					<span class="moveto-confirmed"
+                          data-ng-if="vm.states.confirmed != step.state && vm.states.completed==step.state"
+                          title="Confirm"
+                          data-ng-click="vm.updateStep(step.uuid,vm.states.confirmed)" id="confirmed_{{step.uuid}}"></span>
+                        <span class="moveto-todo"
+                              data-ng-if="vm.states.confirmed!=step.state && vm.states.todo!=step.state"
+                              title="Deny"
+                              data-ng-click="vm.updateStep(step.uuid,vm.states.todo)" id="todo_{{step.uuid}}"></span>
+                        <span class="moveto-delete"
+                              title="Delete"
+                              data-ng-if="vm.states.confirmed != step.state"
+                              data-ng-click="vm.deleteStep(step.uuid)" id="delete-{{step.uuid}}"></span>
+                    </aside>
+                    <div class="description col-xs-8 col-sm-8 col-md-8">
+                        <div class="last-action-details">
+						<span class="name" id="{{step.last_updater.full_name}}_{{step.last_update_type}}">
+							{{step.last_updater && step.last_updater.full_name || step.creator.full_name}}
+							&nbsp;{{step.last_update_type}}:&nbsp;
+						</span>
+                            <span class="time">{{(step.last_update_time) | date2: 'EEEE  MMMM doo yyyy'}} at {{(step.last_update_time) | date: 'hh:mm' : timeGapLocal }} {{ampm}} {{mom}}</span>
+                        </div>
+                        <div id={{step.uuid}} class="step-state {{step.state | lowercase}}" data-ng-click="(step.state==vm.states.todo || step.state==vm.states.completed) && vm.toggleCompleted(step.uuid)"></div>
+                        <div class="step-text" ng-bind-html="step.description | htmlspecialchars"></div>
+                    </div>
+                    <div class="details col-xs-4 col-sm-4 col-md-4">
+                        <span class="next-step-due-date" ng-if="step['due_date'].length >0"><span class="icon"></span>{{(step['due_date']) | date2: 'EEEE  MMMM doo yyyy'}}</span>
+                        <span ng-if="step.engagement != null" class="edit-next-step glyphicon glyphicon-pencil" ng-click="vm.editStep(step)"></span>
+
+                        <ul class="next-step-team-mates">
+
+                            <li data-ng-repeat="member in step['assignees'] track by member.uuid"
+                                data-ng-class="{'me': member.uuid == vm.me.uuid}"
+                                title="{{member.full_name}} ({{member.email}})">
+                            </li>
+                        </ul>
+                        <span uib-popover-template="'myPopoverTemplate.html'"
+                              popover-title="Associated Files"
+                              popover-trigger="mouseenter"
+                              popover-html='true'
+                              popover-placement="left"
+                              class="" ng-if="step.files.length > 0">Associated Files ({{step.files.length}})</span>
+                        <script type="text/ng-template" id="myPopoverTemplate.html">
+                            <ul>
+                                <li ng-repeat="file in step['files'] track by $index">- {{file}}</li>
+                            </ul>
+                        </script>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 team-and-logs">
+
+        <div id="engagement-status">
+         	<h2>Current Status<span ng-if="vm.isEngagementEL || vm.isAdmin" ng-click="vm.addStatus()" id="add-status"></span><span ng-if="(vm.isEngagementEL || vm.isAdmin) && vm.status" ng-click="vm.editStatus()" id="edit-status"></span></h2>
+         	<span id="status-update-details" ng-if="vm.status">
+         		Last updated {{(vm.status.update_time) | date2: 'EEEE  MMMM doo yyyy'}} at {{(vm.status.update_time) | date: 'hh:mm' : timeGapLocal }} {{ampm}} {{mom}}
+         		 by {{vm.status.creator.full_name}}
+         	</span>
+         	<p id="status-description">{{vm.status.description == undefined && 'No status update has been provided yet.' || vm.status.description }}</p>
+         </div>
+
+        <div class="team">
+            <h2><span>Team Members</span><span id="team-members-plus-button-id" ng-click="vm.addPeople()" class="add-people" ng-if="vm.name.length > 0"></span></h2>
+            <ul class="team-avatars">
+                <li id="c-l-te-am-me-mb-er-s-po-po-ve-r"
+                    data-ng-repeat="member in vm.team track by member.uuid"
+                    data-ng-class="{'me': member.uuid == vm.me.uuid}"
+                    uib-popover-template="'myClTeamMembersPopoverTemplate.html'"
+                    popover-trigger='mouseenter'
+                    popover-html='true'
+                    popover-placement='bottom'
+                >
+                <script type="text/ng-template" id="myClTeamMembersPopoverTemplate.html">
+                    <span class="row">
+                        <span class="popover-title-name col-md-12">{{member.full_name}} -<span class="popover-title-company">{{member.company.name}}</span></span>
+                        <span class="popover-role-title col-md-12"> {{member.role.name == 'el' ? 'Engagement Lead' : '' }} {{member.role.name == 'el' && vm.reviewer_uuid == member.uuid ? ' - ' : ''}} {{vm.reviewer_uuid == member.uuid ? 'Reviewer' : ''}}</span>
+                        <span class="popover-details">
+                            <span class="popover-details-topic col-md-4">Email:</span><span class="popover-details-detail col-md-8">{{member.email}}</span>
+                            <span class="popover-details-topic col-md-4">Phone:</span><span class="popover-details-detail col-md-8">{{member.phone_number}}</span>
+                        </span>
+                    </span>
+                 </script>
+                </li>
+            </ul>
+        </div>
+
+        <div class="activity-log">
+            <h2>Activity Log</h2>
+            <ul class="activity-log-details">
+                <li data-ng-repeat="activity in vm.activities track by activity.uuid">
+                    <notifications activity="activity"></notifications>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+</div>

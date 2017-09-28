@@ -1,0 +1,130 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-loader selector=".addVf-form"></ice-loader>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <form name="addVfForm" ng-submit="vm.submitForm()" novalidate class="addVf-form col-md-8">
+            <div class="table-container-flex">
+                <div class="table">
+                    <!-- Table body -->
+                    <div class="body">
+                        <div data-ng-repeat="choice in vm.choices" class="data-row-wrapper">
+                            <ng-form name="vfItemForm">
+	                             <div class="flex-container data-row">
+                                    <!-- Text -->
+                    	            <div class="add-vf-wizard text">
+	                                    Use the form below to add your VF.Try to be as accurate as you can around the information to
+	                                    make sure the validation can accomplished as possible.
+                                	</div>
+                                 </div>
+                                <div class="flex-container data-row">
+                                    <!-- Virtual Function -->
+                                    <div class="table-col-general flex-item">
+                                    	<div id="vf-name-title">VF Name</div>
+                                        <input type="text" name="virtualFunction" class="form-control" ng-model="choice.VirtualFunction" maxlength="32" class="form-control" placeholder="VF Name" required ng-pattern="/^[a-zA-Z0-9-]*$/">
+                                        <div class="ice-form-error" data-ng-show="vfItemForm.virtualFunction.$error">
+                                            <span ng-show="vfItemForm.virtualFunction.$error.pattern">VF Name can be alphanumeric or/and Hyphen</span>
+                                        </div>
+                                    </div>
+                                 </div>
+                                <div class="flex-container data-row">
+                                	<h3 id="title-key-metadata">Key Metadata</h3>
+                                </div>
+                                <div class="flex-container data-row  fields_key_metadata">
+                                    <!-- ECOMP Release -->
+                                    <div class="table-col-general flex-item">
+                                        <select ng-model="choice.ECOMPRelease" id="ecomp-release" class="form-control" required>
+                                            <option value="" selected disabled>ECOMP Release</option>
+                                            <option ng-repeat="dt in vm.ECOMPReleases" value="{{dt.uuid}}">
+                                                {{dt.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <!-- Target AIC Version -->
+                                    <div class="table-col-general flex-item ">
+                                        <select ng-model="choice.TargetAic" id="aic-version" class="form-control" required>
+                                            <option value="" selected disabled>AIC Version</option>
+                                            <option ng-repeat="dt in vm.deployTargets" value="{{dt.uuid}}">
+                                                {{dt.name}} {{dt.version}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <!-- VF Version -->
+                                    <div class="table-col-general flex-item">
+                                        <input type="text" name="VFversion" id="id-vf-version" class="form-control" ng-model="choice.VFVersion" maxlength="32" class="form-control" placeholder="VF Version" required >
+                                    </div>
+                                    <!-- Delete VF -->
+                                    <div class="table-col-general flex-item" ng-if="vm.choices.length > 1">
+                                        <!--
+                                        <div class="reject_large" ng-click='vm.removeChoice()' ng-show="$last"><span class="reject_large"></span>Remove</div>
+                                        -->
+                                        <div class="remove-button" ng-click='vm.removeChoice($index)' ><span class="remove-icon"></span>Remove</div>
+                                    </div>
+                                </div>
+                                 <div class="flex-container data-row">
+                                    <!-- Target Lab Entry -->
+                                    <div class="table-col-general flex-item">
+                                    	<div id="vf-name-title">Target Lab Entry Date</div>
+                                        <md-datepicker id="e2e-lab-entry-date"  md-min-date="vm.minDate"  ng-click="ctrl.openCalendarPane($event)" ng-model-options="{timezone: 'gmt'}"  class="btn btn-default datepicker_btn" ng-model="choice.TargetLab" md-placeholder="E2E Lab Entry Date"></md-datepicker>
+                                    	<input type="hidden" id="add-vf-hidden-target-lab-date" value="{{choice.TargetLab | date2: 'MMMM doo yyyy' : timeGapLocal}}"/>
+                                    </div>
+                                 </div>
+                                 <div class="add-vf-confirm-checkbox">
+                                    <input type="checkbox" name="is_service_provider_internal" ng-model="choice.is_service_provider_internal" />
+                                    The virtual function is only developed internally inside AT&T.
+                                </div>
+                            </ng-form>
+                        </div>
+                     </div>
+   		            <div class="footer">
+                        <div  class="action-row-wrapper">
+				            <a ng-if="!vm.isModal" class="add-button" ng-click='vm.addNewChoice()'>
+				                <span class="add-icon"></span>
+				                <span class="add-text">Add another VF</span>
+				            </a>
+				            <button type="submit" class="btn btn-primary" data-ng-disabled="!addVfForm.$valid">Submit your VF</button>
+				            <a id="skip-add-vf-singup" ng-if="!vm.isModal" class="" ng-click="vm.skipAddVf()">Skip VF creation</a>
+			            </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

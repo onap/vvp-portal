@@ -1,0 +1,174 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<form name="checklistTemplateForm" class="checklist-template" ng-show="vm.template">
+    <div id="cl-header" class="row">
+        <div class="col-sm-8 checklist-template-topic" >
+            <h1 id="cl-title">
+                <span id="edit-template-btn" class="sprite edit-medium edit-checklist" ng-click="vm.switchElementInlineEditing('templateName')"></span>
+                <span class="template-topic">Master Checklist Template:</span>
+                <span ng-if="!vm.inlineEditingElements['templateName']" name="{{vm.template.name}}" class="template-name">{{vm.template.name}}</span>
+                <span class="form-group" ng-class="{ 'has-error' : checklistTemplateForm.editTemplateName.$invalid && checklistTemplateForm.editTemplateName.$dirty }">
+                	<input ng-show="vm.inlineEditingElements['templateName']" class="checklist-template-edit-item edit-template-name" type="text" name="editTemplateName" ng-blur="vm.switchElementInlineEditing('templateName')" ng-model="vm.template.name" required ng-minlength="1" ng-maxlength="24">
+                	<div class="ice-form-error" data-ng-show="checklistTemplateForm.editTemplateName.$error">
+	                    <span ng-show="checklistTemplateForm.editTemplateName.$error.required && checklistTemplateForm.editTemplateName.$dirty">Template name is a required field.</span>
+	                    <span ng-show="checklistTemplateForm.editTemplateName.$error.minlength" class="help-block">Template name is too short.</span>
+	                    <span ng-show="checklistTemplateForm.editTemplateName.$error.maxlength" class="help-block">Template name is too long.</span>
+                	</div>
+                </span>
+            </h1>
+            <div class="topic-description">
+                Editing a master checklist template will affect all checklists currently created of that type
+                and will also restart the validation for all active engagements.
+            </div>
+        </div>
+        <span class="col-sm-4 cl-action-buttons-frame">
+            <div id="state-actions" class="row">
+                <div class="save-button col-md-6"><button class="btn btn-gradient-success" ng-click="vm.save() " data-ng-disabled="checklistTemplateForm.$invalid || vm.isSaveInvalid()" id="save-button">Save</button></div>
+                <div class="col-md-6"><button id="state-actions-btn-reject" class="btn btn-gradient-danger" ng-click="vm.cancel()" id="cancel-button">Cancel</button></div>
+            </div>
+        </span>
+    </div>
+    <article class="row" ng-class="blocked-area" id="checklist-main-section" >
+        <ul class="col-md-6" id="line-item-list">
+            <li data-ng-repeat="section in vm.template.sections">
+                <h2>
+                    <span class="section-topic">Section {{$index+1}}: </span><span ng-show="!vm.inlineEditingElements[section.$$hashKey]">{{section.name}}</span>
+                    <span class="form-group" ng-class="{ 'has-error' : checklistTemplateForm.editSectionName{{$index}}.$invalid && checklistTemplateForm.editSectionName{{$index}}.$dirty }">
+	                    <input ng-show="vm.inlineEditingElements[section.$$hashKey]" id="edit-section-input-{{$index}}" class="checklist-template-edit-item edit-section-name" type="text" name="editSectionName{{$index}}" ng-blur="vm.switchElementInlineEditing(section.$$hashKey)" ng-model="section.name" required ng-minlength="1" ng-maxlength="64">
+	                    <span class="edit-checklist template-edit-item" id="edit-section-btn-{{$index}}" ng-click="vm.switchElementInlineEditing(section.$$hashKey)"></span>
+	                    <span class="remove-item" ng-click="vm.deleteSection(section)"></span>
+	                    <div class="ice-form-error" data-ng-show="checklistTemplateForm.editSectionName{{$index}}.$error">
+		                    <span ng-show="checklistTemplateForm.editSectionName{{$index}}.$error.required && checklistTemplateForm.editSectionName{{$index}}.$dirty">Section name is a required field.</span>
+							<span ng-show="checklistTemplateForm.editSectionName{{$index}}.$error.minlength" class="help-block">Section name is too short.</span>
+							<span ng-show="checklistTemplateForm.editSectionName{{$index}}.$error.maxlength" class="help-block">Section name is too long.</span>
+						</div>
+					</span>
+                </h2>
+                <ul>
+                    <li data-ng-repeat="lineItem in section.lineItems" class="line-item-row" ng-class="{'selected-line' : lineItem === vm.selectedLineItem}" id="select-lineitem-btn-{{$parent.$index}}.{{$index}}" ng-click="vm.selectLineItem(lineItem, section, $event)">
+                        <span class="col-sm-2 col-xs-2 col-md-2">
+                            <span class="lineitem-changed-icon" ng-show="vm.inlineEditingElements[lineItem.uuid] != undefined"></span>
+                            <span ng-class="vm.inlineEditingElements[lineItem.uuid] != undefined ? '' : 'lineitem-index'"></span>{{$parent.$index+1}}.{{$index+1}}
+                        </span>
+                        <span class="col-sm-9 col-xs-9 col-md-9">{{lineItem.name}}</span>
+                        <div class="col-sm-1 col-xs-1 col-md-1">&nbsp;</div>
+                        <span class="selected-line-connector"></span>
+                    </li>
+                    <li class="cl-add-item-line">
+                        <span class="add-button" ng-click="vm.addLineItem(section);" id="add-lineitem-btn"></span>
+                        <span>Add Another line item</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <aside class="col-md-6" id="line-item-extended">
+            <header class="row">
+                <h2 ng-show="vm.selectedSection" class="col-sm-11 col-xs-11 col-md-11"><span class="bold">{{vm.selectedSection.name}} -</span>
+                    <span ng-show="!vm.inlineEditingElements[vm.selectedLineItem.uuid]">{{vm.selectedLineItem.name}}</span>
+                    <span class="form-group" ng-class="{ 'has-error' : checklistTemplateForm.editLineItemName.$invalid && checklistTemplateForm.editLineItemName.$dirty }">
+	                    <input ng-show="vm.inlineEditingElements[vm.selectedLineItem.uuid]" class="checklist-template-edit-item edit-lineitem-name" type="text"
+	                           name="editLineItemName" ng-model="vm.selectedLineItem.name" required ng-minlength="1" ng-maxlength="64" id="edit-line-item-name-input">
+	                    <div class="ice-form-error" data-ng-show="checklistTemplateForm.editLineItemName.$error">
+		                    <span ng-show="checklistTemplateForm.editLineItemName.$error.required && checklistTemplateForm.editLineItemName.$dirty">Line item name is a required field.</span>
+							<span ng-show="checklistTemplateForm.editLineItemName.$error.minlength" class="help-block">Line item name is too short.</span>
+							<span ng-show="checklistTemplateForm.editLineItemName.$error.maxlength" class="help-block">Line item name is too long.</span>
+						</div>
+					</span>
+                </h2>
+                <span ng-class="!vm.inlineEditingElements[vm.selectedLineItem.uuid] ? 'edit-checklist template-edit-item' : 'glyphicon glyphicon-ok edit-checklist glyphicon-cursor-approve-changes'" ng-show="!checklistTemplateForm.$invalid" ng-click="vm.switchElementInlineEditing(vm.selectedLineItem.uuid)" id="edit-lineitem-btn"></span>
+                <span ng-show="vm.selectedLineItem" class="remove-item" ng-click="vm.deleteLineItem(vm.selectedLineItem)" id="delete-lineitem-btn"></span>
+            </header>
+            <section ng-show="!vm.inlineEditingElements[vm.selectedLineItem.uuid]" id="line-item-description" ng-bind-html="vm.selectedLineItem.description | htmlspecialchars | htmlstylespan"></section>
+            <span class="form-group" ng-class="{ 'has-error' : checklistTemplateForm.editLineitemDescription.$invalid && checklistTemplateForm.editLineitemDescription.$dirty }">
+                <wysiwyg textarea-id="edit-lineitem-description"
+              			 ng-show="vm.inlineEditingElements[vm.selectedLineItem.uuid]"
+                         textarea-class="form-control"
+                         textarea-name="editLineitemDescriptionTextArea"
+                         name="editLineitemDescription"
+                         textarea-height="160px"
+                         ng-model="vm.selectedLineItem.description"
+                         class="ice-wysiwyg checklist-template-edit-item edit-lineitem-description"
+                         enable-bootstrap-title="true"
+                         textarea-menu="vm.wysiwyg_menu"
+                         required
+                         textarea-required="True"
+	                     ng-minlength="1"
+                         id="edit-lineitem-description-input">
+                </wysiwyg>
+          	    <div class="ice-form-error" data-ng-show="checklistTemplateForm.editLineitemDescription.$error">
+                   <span ng-show="checklistTemplateForm.editLineitemDescription.$error.required && checklistTemplateForm.editLineitemDescription.$dirty">Line item description is a required field.</span>
+           	       <span ng-show="checklistTemplateForm.editLineitemDescription.$error.minlength" class="help-block">Line item description is too short.</span>
+	               <span ng-show="checklistTemplateForm.editLineitemDescription.$error.maxlength" class="help-block">Line item description is too long.</span>
+				</div>
+			</span>
+
+            <section ng-show="vm.selectedLineItem" id="line-item-validation-instructions">
+                <h3>Validation Instructions</h3>
+                <p ng-if="!vm.inlineEditingElements[vm.selectedLineItem.uuid]" ng-bind-html="vm.selectedLineItem.validation_instructions | htmlspecialchars | htmlstylespan"></p>
+                <span class="form-group" ng-class="{ 'has-error' : checklistTemplateForm.validationInstruction.$invalid && checklistTemplateForm.validationInstruction.$dirty }">
+	                <wysiwyg textarea-id="validation-instruction"
+	             			 ng-show="vm.inlineEditingElements[vm.selectedLineItem.uuid]"
+	                         textarea-class="form-control"
+	                         textarea-name="validationInstructionTextArea"
+	                         name="validationInstruction"
+	                         textarea-height="160px"
+	                         ng-model="vm.selectedLineItem.validation_instructions"
+	                         class="ice-wysiwyg"
+	                         enable-bootstrap-title="true"
+	                         textarea-menu="vm.wysiwyg_menu"
+	                         required
+	                         textarea-required="True"
+		                     ng-minlength="1">
+	                </wysiwyg>
+	                <div class="ice-form-error" data-ng-show="checklistTemplateForm.validationInstruction.$error">
+	                    <span ng-show="checklistTemplateForm.validationInstruction.$error.required && checklistTemplateForm.validationInstruction.$dirty">Validation Instructions is a required field.</span>
+					</div>
+				</span>
+            </section>
+            <header class="row" ng-show="!vm.selectedLineItem">
+                    <h2 class="col-sm-8 col-xs-8 col-md-8"><span class="bold">There is no line item to display</span>
+                    </h2>
+                </header>
+        </aside>
+    </article>
+</form>
+<div class="another-section" ng-show="vm.template">
+    <span class="add-another-section" ng-click="vm.addSection()"></span>
+    <span>Add Another Section</span>
+</div>

@@ -1,0 +1,76 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-loader selector=".checkList-form"></ice-loader>
+
+<div class="modal-header checkList">
+    <button type="button" ng-click="vm.closeModal()" id="close-modal-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <ice-toast is-modal="true"></ice-toast>
+    <div id="modal-title" class="row ">
+        <div class=" dash col-md-12 col-md-12 ">
+            <span class="font_header">Checklist: </span>
+            <span class="font_header_chk_name margin_btm italic">{{vm.name}}</span>
+            </div>
+    </div>
+</div>
+
+<div class="modal-body checkList auditlog">
+    <form name="AuditLogForm" ng-submit="vm.submitForm()" novalidate class="checkList-form">
+        <div class=" margin_top">
+            <h2>Audit Log</h2>
+        </div>
+        <div class="audit-log-items" id="audit-log-lines" data-ng-repeat="auditLog in vm.checklistAuditLogs">
+	        <div class="row"   >
+                <span class="col-md-6  font_user_name">
+                    {{auditLog.name}}
+                </span>
+                <span class="col-md-6 text-right font_date">
+                    {{auditLog.dt}}
+                </span>
+	            <div class=" col-md-12 font_desc margin_btm5" ng-bind-html="auditLog.desc"></div>
+	        </div>
+        </div>
+        <textarea name="inputBox" rows="3" class="form-control col-md-12 margin_top textarea-checklist-audit" ng-model="vm.description" ng-trim="false" ng-pattern="/^[a-zA-Z0-9\&\,\.\ ]*$/"required ></textarea>
+        <div data-ng-show="AuditLogForm.inputBox.$error" class="ice-form-error">
+            <span ng-show="AuditLogForm.inputBox.$error.required && !AuditLogForm.inputBox.$pristine">Please add a Description.</span>
+            <span ng-show="AuditLogForm.inputBox.$error.pattern">Inserted text should not include any special chars such as: \%_*."</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary margin_top" data-ng-disabled="!AuditLogForm.$valid">Add Log Entry</button>
+    </form>
+</div>

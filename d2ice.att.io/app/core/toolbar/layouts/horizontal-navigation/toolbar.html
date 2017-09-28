@@ -1,0 +1,75 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="col-xs-2 col-sm-2 col-md-2">
+    <a ui-sref="app.dashboard.dashboard"><div class="header-logo" id="logo"></div></a>
+</div>
+
+<div class="col-xs-8 col-sm-8 col-md-8">
+    <ul class="header-top-menu">
+        <li><a ui-sref="app.dashboard.dashboard" id="dashboard">Dashboard</a></li>
+        <li><a ui-sref="app.documentation" id="documentation">Documentation</a></li>
+    </ul>
+</div>
+
+<div class="col-xs-2 col-sm-2 col-md-2 header-right">
+
+    <!--<div class="header-chat"></div>-->
+
+    <span uib-dropdown on-toggle="toggled(open)" dropdown-append-to="toolbar">
+      <div class="header-avatar" id="avatar" uib-dropdown-toggle>
+      	<span ng-if="vm.notifications>0" class="notifications"><span id="notifications-count" class="count">{{vm.notifications}}</span>
+      </span></div>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+          <li role="menuitem"><a ui-sref="app.account">Account</a></li>
+          <li class="divider"></li>
+          <li role="menuitem"><a href data-ng-click="vm.addFeedback()" id="feedback-toolbar-link">Feedback</a></li>
+          <li class="divider"></li>
+          <li role="menuitem"><a ui-sref="app.account.notifications">Notifications</a></li>
+          <li class="divider"></li>
+          <li role="menuitem" ng-if="vm.isAdmin"><a ui-sref="app.admin" class="dashboard-admin-link" id="admin-toolbar-link">Admin</a></li>
+          <li class="divider" ng-if="vm.isAdmin"></li>
+          <li role="menuitem"><a href data-ng-click="vm.logout()" class="logout">Logout</a></li>
+      </ul>
+    </span>
+
+
+    <!--<i class="fa fa-user"></i>
+    <i class="fa fa-sign-out"></i>-->
+
+</div>

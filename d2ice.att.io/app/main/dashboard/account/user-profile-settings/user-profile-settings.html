@@ -1,0 +1,66 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<ice-loader selector=".user-profile-settings-form"></ice-loader>
+<h2 id="user-profile-settings-title">Settings</h2>
+<form name="userProfileSettingsForm" ng-submit="vm.submitForm()" novalidate class="user-profile-settings-form col-md-6">
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" id="receive-emails" ng-model="vm.receiveEmails" type="checkbox"> I want to receive regular email updates and information from {{'program.name' | i18next}}
+          </label>
+    </div>
+    <hr>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" id="receive-notifications" ng-model="vm.receiveNotifications" ng-click="vm.changeReceiveNotifications()" type="checkbox"> I want to receive email notifications when something happens on {{'program.name' | i18next}}
+          </label>
+        <div class="receive-email-options">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" id="receive-emails-every-time" ng-model="vm.receiveEmailsEveryTime" ng-disabled="!vm.receiveNotifications" type="checkbox"> I want to receive an email every time
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" id="receive-digest-emails" ng-model="vm.receiveDigestEmails" ng-disabled="!vm.receiveNotifications" type="checkbox"> I want to receive a daily digest email
+                </label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" id="update-account-user-profile-settings" class="btn btn-primary"  data-ng-disabled="userProfileSettingsForm.$invalid">Update</button>
+</form>

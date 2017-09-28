@@ -1,0 +1,212 @@
+<!--
+============LICENSE_START========================================== 
+org.onap.vvp/portal
+===================================================================
+Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+===================================================================
+
+Unless otherwise specified, all software contained herein is licensed
+under the Apache License, Version 2.0 (the “License”);
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+         http:www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Unless otherwise specified, all documentation contained herein is licensed
+under the Creative Commons License, Attribution 4.0 Intl. (the “License”);
+you may not use this documentation except in compliance with the License.
+You may obtain a copy of the License at
+
+         https:creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, documentation
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+============LICENSE_END============================================
+
+ECOMP is a trademark and service mark of AT&T Intellectual Property.-->
+<div class="no-display-text" ng-if="vm.engagement == undefined"></div>
+
+<div ng-class="vm.engagement == undefined ? 'no-display' : 'overview main-wrapper'">
+    <ice-loader selector=".steps"></ice-loader>
+    <ice-loader selector=".activity-log"></ice-loader>
+    <div class="row">
+        <div class="col-md-6">
+            <span id="star-engagement-action" class="sprite starred" ng-class="vm.starred == true ? 'is_starred' : 'not_starred'" ng-click="vm.starEngagement()"></span>
+            <h1 id="engagement-title">
+                <span class="manual-id" id="title-id-{{vm.manual_id}}: {{vm.name}}">{{vm.manual_id}}: </span>{{vm.name}}
+            </h1>
+            <span ng-show="vm.isEngagementEL || vm.isAdmin" uib-dropdown uib-dropdown-toggle on-toggle="toggled(open)" id="admin-actions-dropdown" class="admin-actions-dropdown sprite">
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <li role="menuitem" ng-show="vm.isAdmin"><a data-ng-click="vm.archiveEngagement()">Archive</a></li>
+                  <li class="divider" ng-show="vm.isAdmin"></li>
+                  <li role="menuitem" ng-show="vm.isAdmin"><a data-ng-click="vm.changeReviewer()">Change Reviewer</a></li>
+                  <li class="divider" ng-show="vm.isAdmin"></li>
+                  <li role="menuitem" ng-show="vm.isAdmin"><a data-ng-click="vm.changePeerReviewer()">Change Peer Reviewer</a></li>
+                  <li class="divider" ng-show="vm.isAdmin" ></li>
+                  <li role="menuitem" ng-show="vm.isEngagementEL || vm.isAdmin" ><a data-ng-click="vm.updateEngagementStatus()">Update Status</a></li>
+              </ul>
+            </span>
+        </div>
+        <div class="col-md-6 row">
+            <span class="col-md-12 git-repo-url" ng-if="vm.git_repo_url && vm.stage!=vm.stages.intake" id="git-url"><B>GIT:</B>&nbsp;{{vm.git_repo_url}}</span>
+            <span class="col-md-11 line-separator" ng-if="vm.git_repo_url && vm.stage!=vm.stages.intake"></span>
+            <span class="col-md-12 storage-bucket-url" ng-if="vm.stage!=vm.stages.intake" id="bucket-url"><B>STORAGE BUCKET:</B>&nbsp;{{vm.storage_bucket_url}}</span>
+        </div>
+    </div>
+    <step-stages-directive stage="vm.stage" eng-name="{{vm.vf_name}}" team="vm.team" stage-num="vm.stage_num" eng-uuid="{{vm.uuid}}"></step-stages-directive>
+    <div data-ng-if="vm.stage!=vm.stages.intake">
+        <progress-directive
+            progress="{{vm.progress}}"
+            callback="vm.updateProgress"
+            data="vm.progress_needed_data">
+        </progress-directive>
+    </div>
+
+    <div class="row main-section">
+        <div class="col-md-8 steps">
+            <div class="row steps-header">
+                <h2 class="col-md-6">Next Steps<span data-ng-if="vm.isEngagementEL || vm.isAdmin" id="add-next-step-button" class="add-step fa fa-plus-circle" data-ng-click="vm.addStep()"></span></h2>
+                <span class="col-md-6 filter-wrapper row">
+                <span >Files<multiselect id="selected-file-filter-dropdown" class="state-filter" ng-model="vm.chosen_files_filter" options="item for item in vm.files_filter_options" data-multiple="true" scroll-after-rows="5" filter-after-rows="5" ng-change="vm.is_all_files()" ms-header="Select files" tabindex="-1">
+                </multiselect></span>
+                <span >States<multiselect class="state-filter" ng-model="vm.selected_state_filter" options="item for item in vm.states_select" id="selected-state-filter-dropdown" data-multiple="true" scroll-after-rows="5" filter-after-rows="5" ng-change="vm.update_next_steps_choice()" ms-header="Select states" tabindex="-1">
+                </multiselect></span>
+            </span>
+            </div>
+            <ul class="step-indication" ui-sortable="vm.sortableOptions" ng-model="vm.steps" >
+                <li class="step" data-ng-repeat="step in sorted_results=( vm.steps | filter:is_match_both_filters()) track by step.uuid"  >
+               <!--  ng-if="vm.is_match_both_filters(step)" -->
+                    <div class="step-wrapper row" id="step-{{step.uuid}}" data-ng-class="{'completed': vm.states.completed==step.state && !vm.isEngagementEL, 'confirmed': vm.states.confirmed==step.state}">
+                        <aside class="next-step-actions" data-ng-show="vm.isEngagementEL || vm.isAdmin">
+                        	<span class="order-nextstep fa fa-bars"></span>
+                            <span ng-show="step.engagement" class="edit-next-step fa fa-pencil-square-o" ng-click="vm.editStep(step)"></span>
+                            <span class="moveto-delete fa fa-minus-circle"
+                                  title="Delete"
+                                  data-ng-if="vm.states.confirmed != step.state"
+                                  data-ng-click="vm.deleteStep(step.uuid)" id="delete-{{step.uuid}}"></span>
+                        </aside>
+                        <div class="description col-xs-8 col-sm-8 col-md-8">
+                            <div class="last-action-details">
+						<span class="name" id="{{step.last_updater.full_name}}_{{step.last_update_type}}">
+                            <!--When the nex step is not related to engagement that's means it ssh key next step and we will display 'System Next Step' as tha last updater-->
+							{{step.engagement ? (step.last_updater && step.last_updater.full_name || step.creator.full_name) : "System Next Step"}}
+							&nbsp;{{step.last_update_type}}:&nbsp;
+						</span>
+                                <span class="time">{{(step.last_update_time) | date2: 'EEEE  MMMM doo yyyy'}} at {{(step.last_update_time) | date: 'hh:mm' : timeGapLocal }} {{ampm}} {{mom}}</span>
+                            </div>
+                            <div id={{step.uuid}} class="step-state {{step.state | lowercase}} fa" ng-class="{'fa-check-circle': step.state == 'Completed', 'fa-check-circle-o': step.state == 'Incomplete'}" data-ng-click="(step.state==vm.states.incomplete || step.state==vm.states.completed) && vm.toggleCompleted(step.uuid)"></div>
+                            <div id="step-description-{{$index}}" class="step-text" ng-bind-html="step.description | htmlspecialchars"></div>
+                        </div>
+                        <div class="details col-xs-4 col-sm-4 col-md-4">
+                            <span class="next-step-due-date" ng-if="step['due_date'].length >0"><span class="icon fa fa-clock-o"></span>{{(step['due_date']) | date2: 'EEEE  MMMM doo yyyy'}}</span>
+                            <ul class="next-step-team-mates">
+                                <li data-ng-repeat="member in step['assignees'] track by member.uuid"
+                                    data-ng-class="{'me': member.uuid == vm.me.uuid}"
+                                    class="fa fa-user-circle-o"
+                                    title="{{member.full_name}} ({{member.email}})">
+                                </li>
+                            </ul>
+                            <span uib-popover-template="'myPopoverTemplate.html'"
+                                  popover-title="Associated Files"
+                                  popover-trigger="outsideClick"
+                                  popover-html='true'
+                                  popover-placement="bottom"
+                                  class="associated-files"
+                                  id="associated-files">Associated Files <span class="fa fa-caret-square-o-down"></span></span>
+                            <script type="text/ng-template" id="myPopoverTemplate.html">
+                                <span id="associated-files-empty-msg" ng-if="!step.files || step.files.length === 0">There are no files for this next step</span>
+                                <ul>
+                                    <li id="file{{$index}}" ng-repeat="file in step.files track by $index">- {{file}}</li>
+                                </ul>
+                            </script>
+                        </div>
+                    </div>
+                </li>
+            	<h4 ng-show="!sorted_results || sorted_results.length === 0">No next steps matching filtered results.</h4>
+            </ul>
+        </div>
+        <div class="col-md-4 team-and-logs">
+            <div id="engagement-target-completion">
+                <div id="target-completion-header">
+                    <span>Target Completion</span>
+                    <i class="edit-target-completion fa fa-pencil-square-o" ng-show="vm.isEngagementEL || vm.isAdmin" data-ng-click="vm.changeTargetCompletion()" aria-hidden="true"></i>
+                </div>
+                <div id="target-completion-content">
+                    <h4 class="target-completion-content">{{vm.completion_date | date:'shortDate'}}</h4>
+                </div>
+            </div>
+            <div id="engagement-status">
+                <div id="engagement-status-header">
+                    <span>Current Status</span>
+                    <i class="add-engagement-status fa fa-plus-circle" ng-show="vm.isEngagementEL || vm.isAdmin" ng-click="vm.addStatus()" aria-hidden="true"></i>
+                </div>
+                <div id="engagement-status-content">
+                    <h4 class="engagement-status-content">
+                        <i class="edit-engagement-status fa fa-pencil-square-o pull-right" ng-show="(vm.isEngagementEL || vm.isAdmin) && vm.status" ng-click="vm.editStatus()" aria-hidden="true"></i>
+                        <span id="status-update-details" ng-if="vm.status">
+                            Last updated {{(vm.status.update_time) | date2: 'EEEE  MMMM doo yyyy'}} at {{(vm.status.update_time) | date: 'hh:mm' : timeGapLocal }} {{ampm}} {{mom}}
+                             by {{vm.status.creator.full_name}}
+                        </span>
+                        <p id="status-description">{{vm.status.description == undefined && 'No status update has been provided yet.' || vm.status.description }}</p>
+                    </h4>
+                </div>
+            </div>
+            <div id="engagement-team">
+                <div id="engagement-team-header">
+                    <span>Team Members</span>
+                    <i class="add-team-member fa fa-plus-circle" id="team-members-plus-button-id" ng-show="vm.name.length > 0" data-ng-click="vm.addPeople()" aria-hidden="true"></i>
+                </div>
+                <div class="engagement-team-content">
+                    <ul class="team-avatars">
+                        <li id="team-member-{{member.full_name}}"
+                            data-ng-repeat="member in vm.team track by member.uuid"
+                            data-ng-class="{'me': member.uuid == vm.me.uuid}"
+                            uib-popover-template="'myClTeamMembersPopoverTemplate.html'"
+                            popover-trigger='outsideClick'
+                            popover-html='true'
+                            class="team-member-avatar fa fa-user-circle-o"
+                            popover-placement='bottom'>
+                            <script type="text/ng-template" id="myClTeamMembersPopoverTemplate.html">
+                                <span class="row">
+                                    <span id="team-member-title" class="popover-title-name col-md-12">
+                                        {{member.full_name}}
+                                        <span ng-show="member.company && member.company.name" class="popover-title-company"> - {{member.company.name}}</span>
+                                        <span class="popover-role-title ">{{vm.engagement.reviewer_uuid == member.uuid ? 'Reviewer' : ''}}{{vm.engagement.peer_reviewer_uuid == member.uuid ? 'Peer Reviewer' : ''}}</span>
+                                    </span>
+                                    <span class="popover-details">
+                                        <span class="popover-details-topic col-md-4">Email:</span><span id="team-member-email" class="popover-details-detail col-md-8">{{member.email}}</span>
+                                        <span ng-show="member.phone_number" class="popover-details-topic col-md-4">Phone:</span><span id="team-member-phone" class="popover-details-detail col-md-8">{{member.phone_number}}</span>
+                                    </span>
+                                    <span id="remove-member" ng-if="vm.is_able_to_delete(member)" class="remove-user-from-eng" ng-click="vm.remove_user_from_eng(member)">
+                                        <span>Remove</span><span class="remove-icon"></span>
+                                    </span>
+                                </span>
+                            </script>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+	        <div class="activity-log">
+	            <div id="activity-log-header">Activity Log</div>
+	            <ul class="activity-log-details">
+	                <li data-ng-repeat="activity in vm.activities track by activity.uuid">
+	                    <notifications id="activity-log-{{$index}}" activity="activity"></notifications>
+	                </li>
+	            </ul>
+	        </div>
+        </div>
+    </div>
+</div>
