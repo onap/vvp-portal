@@ -1,5 +1,5 @@
-#
-# ============LICENSE_START==========================================
+#  
+# ============LICENSE_START========================================== 
 # org.onap.vvp/portal
 # ===================================================================
 # Copyright © 2017 AT&T Intellectual Property. All rights reserved.
@@ -10,7 +10,7 @@
 # you may not use this software except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#          http:www.apache.org/licenses/LICENSE-2.0
+#             http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
 # you may not use this documentation except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#          https:creativecommons.org/licenses/by/4.0/
+#             https://creativecommons.org/licenses/by/4.0/
 #
 # Unless required by applicable law or agreed to in writing, documentation
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,5 +36,34 @@
 # ============LICENSE_END============================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
-FROM nginx:1.11.9-alpine
-COPY d2ice.att.io/dist /usr/share/nginx/html
+Changelog nicescroll release 3.6.8
+http://nicescroll.areaaperta.com/
+https://github.com/inuyaksa/jquery.nicescroll
+
+
+Changed features
+
+New options
+- disablemutationobserver, = TRUE when you want that MutationObserver disabled #580
+
+Fixes
+- Fix show of null #583
+- Refactoring js #582
+- Removed comments #577
+- Timeouts & using on dynamic DOM Elements: "Uncaught TypeError" #579
+- version 3.6.6 stack overflow #578 
+- MutationObserver. IE11 crashes #568 
+- Xbox One IE Edge browser can't scroll anywhere #581 (to test on real hw!)
+- NIce Scroll doesnt work on Window Surface IE Edge #555
+
+
+Thanks to great contributors!!
+@silversonicaxel
+@vsn4ik
+@ronar
+@StephanBijzitter
+ 
+
+
+TODO
+- deprecate legacy browsers

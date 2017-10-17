@@ -1,0 +1,8 @@
+{
+	"serviceProvider": {
+		"name": "ServiceProvider"
+	},
+	"program": {
+	    "name": "VVP"
+	}
+}
