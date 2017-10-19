@@ -37,4 +37,4 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 FROM nginx:1.11.9-alpine
-COPY d2ice.att.io/dist /usr/share/nginx/html
+COPY vvp/dist /usr/share/nginx/html
