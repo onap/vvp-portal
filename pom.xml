@@ -47,7 +47,7 @@
                 <registry>nexus3.onap.org:10003</registry>
                 <images>
                     <image>
-                        <name>openecomp/vvp-portal</name>
+                        <name>openecomp/vvp/portal</name>
                         <alias>vvp-portal</alias>
                         <build>
                             <cleanup>true</cleanup>
@@ -88,7 +88,7 @@
                         <goal>push</goal>
                     </goals>
                     <configuration>
-                        <image>openecomp/vvp-portal</image>
+                        <image>openecomp/vvp/portal</image>
                     </configuration>
                 </execution>
             </executions>
