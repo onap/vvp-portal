@@ -7,7 +7,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.openecomp.vvp.portal</groupId>
+  <groupId>org.onap.vvp.portal</groupId>
   <artifactId>portal</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0-SNAPSHOT</version>
@@ -15,7 +15,7 @@
 
   <properties>
         <!--nexus-->
-        <sitePath>/content/sites/site/org/openecomp/vvp/${project.artifactId}/${project.version}</sitePath>
+        <sitePath>/content/sites/site/org/onap/vvp/${project.artifactId}/${project.version}</sitePath>
         <!--maven-->
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
@@ -47,7 +47,7 @@
                 <registry>nexus3.onap.org:10003</registry>
                 <images>
                     <image>
-                        <name>openecomp/vvp/portal</name>
+                        <name>onap/vvp/portal</name>
                         <alias>vvp-portal</alias>
                         <build>
                             <cleanup>true</cleanup>
@@ -88,7 +88,7 @@
                         <goal>push</goal>
                     </goals>
                     <configuration>
-                        <image>openecomp/vvp/portal</image>
+                        <image>onap/vvp/portal</image>
                     </configuration>
                 </execution>
             </executions>
