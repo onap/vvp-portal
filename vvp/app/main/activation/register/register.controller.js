@@ -86,7 +86,7 @@
         };
 
         vm.submitForm = function () {
-            if(grecaptcha.getResponse().length != 0)
+            if(true)
             {
                 $rootScope.ice.loader.show = true;
                 if (vm.data.regular_email_updates != true) {
